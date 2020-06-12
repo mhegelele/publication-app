@@ -227,7 +227,8 @@ class PageController extends Controller
         return view('approve')->with(['pub'=>$pubs, 'author'=>$authors]);
     }
 
- function viewsPublication($id){
+
+  function viewadminPublication($id){
         $authors = DB::table('authors')
                             ->where('authors.p_id',$id)
                             ->join('publication', 'authors.p_id', "=",'publication.p_id')
@@ -250,10 +251,27 @@ class PageController extends Controller
                     ->where('publication.p_id',$id)
                      ->join('authors', 'publication.p_id', '=', 'authors.p_id')
                    ->join('publication_types', 'publication.pub_type', '=', 'publication_types.id')
+                      ->join('research_area', 'publication.researchArea', '=', 'research_area.id')
+                      ->leftJoin('centres','publication.centre', '=','centres.id')
                     ->first();
-        return view('approve')->with(['pub'=>$pubs])->with('authors',$authors);
+        return view('view-adminpublication')->with(['pub'=>$pubs])->with('authors',$authors);
     }
-
     
+public function viewonePublication()
+    {
+
+               if(Auth::check()){
+                     $pubs = DB::table('publication')
+                                    ->where("publication.uploader", Auth::user()->id)
+                                    ->where('status','pending')
+                                    ->select('publication.*')
+                                    ->get();
+            return view('uploaded-publication')->with(['pubs'=>$pubs]);
+            
+        }else{
+            return redirect()->back();
+        }
+       
+    }
 
 }

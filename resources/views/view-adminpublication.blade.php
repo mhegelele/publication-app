@@ -12,11 +12,15 @@
 	<div class="citation">
 		<h3 class="title">Title</h3>
 		<p>{{$pub->title}}</p>
+	</div>
+		<div class="citation">
 	<h3 class="title">Citation</h3>
 	<p>{{$pub->citation}}</p>
+</div>
+	<div class="citation">
 	@if(!empty($pub->abstract))
 	<h3 class="title">Abstract</h3>
-	<div class="citation text-justify">{!! $pub->abstract!!}</div>
+	<div class="text-justify">{!! $pub->abstract!!}</div>
 	@endif
 	</div>
 <br>
@@ -28,12 +32,27 @@
 	<strong>Publication year:</strong> {{$pub->pub_year}}
 	</div>
 	<div class="citation">
+	<strong>Publication Type:</strong> {{$pub->type}}
+	</div>
+	<div class="citation">
+	<strong>Research Area:</strong> {{$pub->area}}
+	</div>
+	<div class="citation">
 	<strong>Journal:</strong> {{$pub->journal}}
 	</div>
+	<div class="citation">
+	<strong>Start page - End page: </strong> {{$pub->startpage}} - {{$pub->endpage}} 
+	</div>
+	<div class="citation">
+	<strong>Volume: </strong> {{$pub->volume}} 
+	</div>
+	<div class="citation">
+	<strong>Uploaded Date: </strong> {{$pub->uploadedDate}} 
+	</div>
 		<div class="citation">
-	<strong>Start page - End page</strong> {{$pub->startpage}}-{{$pub->endpage}} 
+	<strong>Approved Date: </strong> {{$pub->approvedDate}} 
 	</div>
-	</div>
+		</div>
 </div>
 </div>
 </div>

@@ -20,7 +20,7 @@
 		@if(session()->has('success'))
 			<div class="alert alert-success alert-dismissable fade in">
   			<a href="{{url('management')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  			<strong>Success!</strong> {{session('success')}}
+  			 {{session('success')}}
 			</div>
 		@endif
 	</div>
@@ -39,13 +39,17 @@ rows="5" cols="20">{{$pubs->title}}</textarea>
 		<div class="letter-box">
 			<h3 class="title">Citation</h3>
 			<textarea class="form-control" id="comment" name="citation"
-rows="5" cols="20">{{$pubs->citation}}</textarea>
+rows="5" cols="30">{{$pubs->citation}}</textarea>
 			<!-- <p>{{$pubs->citation}}</p> -->
 		</div>
-		<div class="letter-box text-justify">
+	<div class="letter-box text-justify">
 			<h3 class="title">Abstract</h3>
-			{!! $pubs->abstract!!}
+			<textarea class="form-control" id="comment" name="abstract"
+rows="5" cols="20">{{$pubs->abstract}}</textarea>
+			<!-- <p>{{$pubs->citation}}</p> -->
 		</div>
+
+	
 		<div class="letter-box">
 			<h3 class="title">Authors From NIMR</h3>
 		<p>
@@ -78,11 +82,12 @@ rows="5" cols="20">{{$pubs->citation}}</textarea>
 			</tr>
 			<tr>
 				<td>Volume</td>
-				<td>{{$pubs->volume}}</td>
+				<td><input type="text" name="volume" value="{{$pubs->volume}}" class="form-control" placeholder="Volume"></td>
 			</tr>
 			<tr>
 				<td>Pages</td>
-				<td>{{$pubs->startpage}} - {{$pubs->endpage}}</td>
+				<td><input type="text" name="startpage" value="{{$pubs->startpage}}" class="form-control" placeholder="Startpage"> 
+					<input type="text" name="endpage" value="{{$pubs->endpage}}" class="form-control" placeholder="Endpage"></td>
 			</tr>
 			<tr>
 				<td>Doi</td>

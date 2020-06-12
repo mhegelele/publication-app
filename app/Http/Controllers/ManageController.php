@@ -65,7 +65,7 @@ class ManageController extends Controller
       function approve($id){
         $uploader = DB::table('users')
                         ->join('publication','publication.uploader', '=', 'users.id')
-                        ->select('users.*')
+                        
                         ->first();
         $pubs =  DB::table('publication')
                    ->where('publication.p_id',$id)

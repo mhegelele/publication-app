@@ -40,9 +40,13 @@ Route::post("/addpublication","DataCommunication@addPublication");
 Route::post("/publish","DataCommunication@approvePublication");
 Route::post("/search","PageController@search");
 
+
 //view publication by ID
 Route::get("/publication/{id}","PageController@viewPublication");
+Route::get("/uploaded-publication","PageController@viewonePublication");
 Route::get("/center/{id}","PageController@viewPublicationByCenter");
+
+Route::get("/adminpublication/{id}","PageController@viewadminPublication");
 
 
 //approve publications by ids

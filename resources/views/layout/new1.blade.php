@@ -215,7 +215,7 @@ div#navigation {
       </div>
     </div>
     <div class="footer_bottom">
-      <p class="copyright">Copyright &copy; 2019 <a href="">NIMR</a></p>
+      <p class="copyright"> &copy; 2019 <a href="">National Institute for Medical Research</a></p>
       <p class="developer">Developed By Alice Jonathan: Contact 0717-592556</p>
     </div>
   </footer>

@@ -24,8 +24,8 @@ class DataCommunication extends Controller
             echo $snames[$x]." - ".$initials[$x]." - ".$autship[$x]." - ".$inst[$x]."<br>";
         }
     }
-    function addPublication(Request $request){
-   		$data = Input::except(array('_token','submit','fname','mname','sname','authShip','autInst','otherResearchArea','researchArea'));
+     function addPublication(Request $request){
+        $data = Input::except(array('_token','submit','fname','mname','sname','authShip','autInst','otherResearchArea','researchArea'));
         $fname = $request->fname;
         $mname = $request->mname;
         $sname = $request->sname;
@@ -46,18 +46,18 @@ class DataCommunication extends Controller
             'title'=>'required',
             'researchArea'=>'required',
       //       'citation'=>'required',
-    		// 'pub_year'=>'required',
-    		);
+            // 'pub_year'=>'required',
+            );
 
-    	$validator = Validator::make($data,$rule);
-    	if ($validator->fails()) {
-    		return redirect()->back()->withErrors($validator)->withInput();
-    	}else{
-    		DB::table('publication')->insert($data); 
-    		$id = DB::getPdo()->lastInsertId();
+        $validator = Validator::make($data,$rule);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }else{
+            DB::table('publication')->insert($data); 
+            $id = DB::getPdo()->lastInsertId();
             for($x = 0; $x<sizeof($sname);$x++){
                 if($sname[$x] != ""){
-        		DB::table('authors')->insert([
+                DB::table('authors')->insert([
                     'p_id'=>$id,
                     'firstname'=>$fname[$x],
                     'middlename'=>$mname[$x],
@@ -73,20 +73,20 @@ class DataCommunication extends Controller
                $data = array('name'=>"Nimr Publication Administrator");
    
       Mail::send(['text'=>'mail'], $data, function($message) {
-         $message->to('ndekya@yahoo.com','nimrpublication@gmail.com', 'Nimr Publication')->subject
+         $message->to('alicejonathan8@gmail.com','nimrpublication@gmail.com', 'Nimr Publication')->subject
             ('New Publication have been uploaded');
          $message->from('nimrpublication@gmail.com','Nimr Publication');
       });
    
             }
-    		return redirect()->back()->with('success','you have succesful uploaded publication');	
-    	}
+            return redirect()->back()->with('success','you have succesful uploaded publication');   
+        }
     }
     function approve(Request $request){
         $id = $request->id;
         $user = Auth::id();
         $date = date("Y-m-d");
         DB::table('publication')->where('p_id',$id)->update(['status' => 'approved','approvedBy'=>$user,'approvedDate'=>$date]);
-        return redirect()->back()->with('success','Publication is now Approved');
+        return redirect()->back()->with('success','Publication successfully approved');
     }
 }

@@ -161,10 +161,10 @@ div#navigation {
         	@if(Auth::check())
              <li class="active"><a href="{{ url('')}}"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
                     <li><a href="{{url('add-publication')}}">Add Publication</a></li>
+                    <li><a href="{{url('uploaded-publication')}}">Uploaded Publication</a></li>
             @if(Auth::user()->level === 1)
             <li><a href="{{url('manage')}}">Manage</a></li>
-            <!-- <li><a href="{{url('test')}}">Test</a></li> -->
-            @endif
+                     @endif
             <li><a href="{{url('logout')}}">Logout</a></li>
           @else
            <li class="active"><a href="{{ url('')}}"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
@@ -222,7 +222,7 @@ div#navigation {
       </div>
     </div>
     <div class="footer_bottom">
-      <p class="copyright">Copyright &copy; 2019 <a href="">NIMR</a></p>
+     <p class="copyright"> &copy; 2019 <a href="">National Institute for Medical Research</a></p>
       <p class="developer">Developed By Alice Jonathan: Contact 0717-592556</p>
     </div>
   </footer>

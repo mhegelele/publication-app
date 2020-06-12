@@ -160,7 +160,7 @@
 	  	</div>
 	</div>
 	<div class="form-group row">
-	  	<label for="doi" class="col-md-2">Doi</label>
+	  	<label for="doi" class="col-md-2">DOI</label>
 	  	<div class="col-md-10">
 	   	 <input class="form-control" type="text" name="doi" value="{{old('doi')}}"  id="doi">
 	  	</div>

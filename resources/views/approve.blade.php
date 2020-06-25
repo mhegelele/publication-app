@@ -12,9 +12,9 @@
             </a>
             </div>
 </header>
-<div id="content-wrapper">
-<div class="row tokeza">
-
+<div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="left_content">
 <div class="row">
 	<div class="col-md-10 col-md-offset-1">
 		@if(session()->has('success'))
@@ -51,15 +51,15 @@ rows="5" cols="20">{{$pubs->abstract}}</textarea>
 
 	
 		<div class="letter-box">
-			<h3 class="title">Authors From NIMR</h3>
-		<p>
-		
-			@foreach($nauthors as $au)
-			{{$au->firstname}} {{$au->middlename}} {{$au->surname}}&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;{{$au->role}}<br><br>
-		@endforeach
-		</p>
-		</p>
-		</div>
+			<h3 class="title">Authors</h3>
+		  @foreach($nauthors as $au)
+ <a href="">{{$au->firstname}} {{$au->middlename}} {{$au->surname}}
+	&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;{{$au->role}}</a>  <br><br>
+    @endforeach
+
+
+
+	</div>
 		<div class="letter-box">
 			<h3 class="title">Other Infomation</h3>
 		<table class="table">

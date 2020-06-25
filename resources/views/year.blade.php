@@ -17,7 +17,7 @@
 <table class="table table-bordered table-striped" width="50%">
            <thead>
         
-            <tr><th colspan="4"><center>PUBLICATIONS DATABASE REPORT BY CENTER</center></th></tr>
+            <tr><th colspan="4"><center>PUBLICATIONS DATABASE REPORT BY YEAR</center></th></tr>
    
    
    <div class="col-lg-4 col-md-4 col-sm-4">
@@ -49,19 +49,7 @@
  <td style="width:20px;">{{ ++$i }}</td><td>{{$view->title}}</td>
             </tr>
  @endforeach
-   <!--     <tr>
-<td colspan="2"><a href="{{ route('pdfyear',['download'=>'pdf']) }}" style="color:red; margin-left:79%;  "><b>DOWNLOAD PDF</b> <span class="fa fa-file-pdf-o"></span></a></td>
-  </tr>  -->     
-  
-
-<td colspan="2"><center>ALL RIGHT ARE RESERVED @ 2020 BY 
-    <a href="https://www.nimr.or.tz/" style="color:blue;">NIMR HEADQUATERS</a></center></td>
-  <!-- <td>
-<img alt="LOGO" src="{{ url('images/NIMRI.png')}}"class="img-responsive" width="70%" height="70%">
-  </td> -->
-  </tr>
-  
-               
+                  
 </table>
        </div>
 

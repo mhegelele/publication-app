@@ -1,6 +1,10 @@
 @extends('layout.master1')
 @section('content')
-     <section id="contentSection">
+    <section id="contentSection">
+<header class="section2 background-dark">
+  <div class="line text-center">        
+    </div>
+</header>
 <div class="row">
 <div class="col-lg-8 col-md-8 col-sm-8">
 <div class="left_content">
@@ -21,7 +25,7 @@
 </div>
 </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
-  <div class="single_sidebar" style="margin-bottom: 50px;">
+  <div class="single_sidebar wow fadeInDown" style="margin-bottom: 50px;">
            <h2><span>Centers</span></h2>
                  <ul class="centers">
            <li class="centers">

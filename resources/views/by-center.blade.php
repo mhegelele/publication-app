@@ -1,4 +1,4 @@
- @extends('layout.new')
+@extends('layout.new')
 @section('content')
  <section id="contentSection">
     <div class="row">
@@ -46,12 +46,7 @@
           </div>
           
           <div>
-      <div class="col-lg-4 col-md-4 col-sm-4" style='margin-right:300px;'>
-          
-    <div id="piechart"></div>
-
-            
-    </div>
+     
     
   </section>
   @endsection

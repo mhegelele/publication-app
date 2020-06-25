@@ -4,10 +4,11 @@ namespace NimrPublication\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use PDF;
 
 class CenterController extends Controller
 {
-    function index()
+    function index(Request $request)
     {
 
     	$c = DB::table('centres')
@@ -35,22 +36,41 @@ class CenterController extends Controller
                     ->select(DB::raw('count(*) as count1'))
                     // ->where('users.level', '=', 1)
                     ->get();
-                     
+              $u0 = DB::table('users')
+                    ->select(DB::raw('count(*) as count0'))
+                    ->where('users.level', '=', 1)
+                    ->get();
+              $u1 = DB::table('users')
+                    ->select(DB::raw('count(*) as count1'))
+                    ->where('users.level', '=', 0)
+                    ->get();
+
             $p = DB::table('publication')
                 ->select(DB::raw('count(*) as publications'))
                 // ->where('publication.status','=','approved')
                 // ->groupBy('pub_year')
                 ->get();
             $ap = DB::table('publication')
-                ->select(DB::raw('count(*) as publications1'))
+                ->select(DB::raw('count(*) as publications1'),'title')
                 ->where('publication.status','=','approved')
                 // ->groupBy('pub_year')
                 ->get();
+
+           $ap1 = DB::table('publication')->where('status','approved')
+                                            ->select('p_id','title')
+                                            ->get();
+
+             $pubs = DB::table('publication')->where('status','approved')
+                                            ->select('p_id','title')
+                                            ->get();
              $app = DB::table('publication')
-                ->select(DB::raw('count(*) as publications2'))
+                ->select(DB::raw('count(*) as publications2'),'title')
                 ->where('publication.status','=','pending')
                 // ->groupBy('pub_year')
                 ->get();
+            $app1 = DB::table('publication')->where('status','pending')
+                                            ->select('p_id','title')
+                                            ->get();
             $pc = DB::table('centres')
                 ->select(DB::raw('count(*) as centre'))
                 ->get();
@@ -60,10 +80,17 @@ class CenterController extends Controller
              $year = DB::table('publication')
                     ->groupBy('pub_year')
                     ->get();
+       
+
+  if($request->has('download')){
+            $pdf = PDF::loadView('pdf');
+            return $pdf->download('reportview.pdf');
+        }
 
    	return view('reportview')->with('roles',$r)->with(['centres'=>$c])->with(['years'=>$y])
-        ->with(['pubs'=>$p])->with(['users'=>$u])->with(['pubs1'=>$ap])->with(['pubs2'=>$app])
-        ->with(['centers'=>$pc])->with(['cents'=>$cents])->with(['year'=>$year]);
+        ->with(['pubs'=>$p])->with(['users'=>$u])->with(['users0'=>$u0])->with(['users1'=>$u1])->
+        with(['pubs1'=>$ap])->with(['pubs2'=>$app])->with(['centers'=>$pc])->with(['cents'=>$cents])->
+        with(['year'=>$year])->with(['pubs10'=>$ap1])->with(['pubs20'=>$app1]);
     
     }
   }

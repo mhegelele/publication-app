@@ -31,7 +31,7 @@
    
    <div class="col-lg-4 col-md-4 col-sm-4">
 
-  <tr> <th colspan="2"><center>REPORTS SHOW OVARALL SUMMARY OF PUBLICATIONS UPLOADED, APPROVED AND PENDING AND THE NUMBER OF USERS IN THE DATABASE BY CENTRE AND ROLE</center></th></tr> 
+  <tr> <th colspan="2"><center>REPORTS SHOW OVERALL  SUMMARY OF PUBLICATIONS UPLOADED, APPROVED AND PENDING AND THE NUMBER OF USERS IN THE DATABASE BY CENTRE AND ROLE</center></th></tr> 
       <tr>
                   <th colspan="2"><center>PUBLICATIONS</center></th>
                   
@@ -47,25 +47,38 @@
 
  <td>NUMBER OF APPROVED PUBLICATIONS <td width="20px;">{{$pub1->publications1}}</td></td>
             </tr>
+            
           </a>
           @endforeach
-            <tr>
-
+          <tr>
+@foreach($pubs10 as $pub10) 
+              <td colspan="2">{{$pub10->title}}</td>
+            </tr>
+ @endforeach
+   <!-- <tr>
+<td colspan="2"><a href="{{ route('pdfviews',['download'=>'pdf']) }}" style="color:red; margin-left:79%;  "><b>DOWNLOAD PDF</b> <span class="fa fa-file-pdf-o"></span></a></td>
+  </tr> -->
               <tr>
 @foreach($pubs2 as $pub2) 
 
  <td>NUMBER OF PENDING PUBLICATIONS <td>{{$pub2->publications2}}</td></td>
             </tr>
-          @endforeach
+                    @endforeach
             <tr>
-
+@foreach($pubs20 as $pub20) 
+              <td colspan="2">{{$pub20->title}}</td>
+            </tr>
+ @endforeach
+  <!--  <tr>
+<td colspan="2"><a href="{{ route('pdfview',['download'=>'pdf']) }}" style="color:red; margin-left:79%;  "><b>DOWNLOAD PDF</b> <span class="fa fa-file-pdf-o"></span></a></td>
+  </tr> -->
             <tr>
 @foreach($pubs as $pub) 
 
  <td><h4>TOTAL NUMBER OF UPLOADED PUBLICATIONS</h4> <td><h4>{{$pub->publications}}</h4></td></td>
             </tr>
           @endforeach
-            <tr>                  <th colspan="2"><center>CENTERS</center></th>
+            <tr>                  <th colspan="2"><center>CENTRES</center></th>
             </tr>
                   
             </tr>    
@@ -83,6 +96,31 @@
      @endforeach
 
      </tr>
+       <!-- <tr>
+<td colspan="2"><a href="{{ route('pdfviews',['download'=>'pdf']) }}" style="color:red; margin-left:79%;  "><b>DOWNLOAD PDF</b> <span class="fa fa-file-pdf-o"></span></a></td>
+  </tr> -->
+      <tr>
+ <tr>                  <th colspan="2"><center>USERS</center></th>
+            </tr>
+ <tr>
+                <th>USERS ROLE</th>
+                <th>NO_USERS</th>
+                         </tr>
+                         <tr>@foreach($users0 as $user0)
+                         <td>Administrators</td> 
+              <td colspan="2">{{$user0->count0}}</td>
+            </tr>
+ @endforeach
+
+ <tr>@foreach($users1 as $user1)
+                         <td>Staffs</td> 
+              <td colspan="2">{{$user1->count1}}</td>
+            </tr>
+ @endforeach
+                         @foreach($users as $user) 
+ <td><h4>TOTAL NUMBER OF USERS</h4> <td><h4>{{$user->count1}}</h4></td></td>
+            </tr>
+          @endforeach
                   </tbody>
        
 
@@ -113,7 +151,7 @@
 <a href="{{url('manage')}}" ><div class="citation">
            <h5> PUBLICATIONS FOR APPROVAL</h5>
           </div></a>
- <a href="{{url('users')}}" ><div class="citation" >
+ <a href="{{url('approved')}}" ><div class="citation" >
            <h5> APPROVED PUBLICATIONS</h5>
           </div></a>
           <a href="{{url('users')}}" ><div class="citation" >

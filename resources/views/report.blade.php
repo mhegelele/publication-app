@@ -18,7 +18,7 @@
 <table class="table table-bordered table-striped" width="50%">
            <thead>
              <tr>  <th colspan="2"><center>
-  <img alt="LOGO" src="{{ url('images/NIMRI.png')}}"class="img-responsive" width="10%" height="10%"></center></th></tr> 
+  
             <tr><th colspan="4"><center>PUBLICATIONS DATABASE REPORT BY CENTER</center></th></tr>
    
    
@@ -57,11 +57,7 @@
   </tr>   -->    
   
 
-<td colspan="2"><center>ALL RIGHT ARE RESERVED @ 2020 BY 
-    <a href="https://www.nimr.or.tz/" style="color:blue;">NIMR HEADQUATERS</a></center></td>
-  <!-- <td>
-<img alt="LOGO" src="{{ url('images/NIMRI.png')}}"class="img-responsive" width="70%" height="70%">
-  </td> -->
+
   </tr>
   
                

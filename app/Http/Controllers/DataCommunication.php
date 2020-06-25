@@ -16,7 +16,6 @@ class DataCommunication extends Controller
         $fname = $request->author;
         $mname = $request->author;
         $sname = $request->author;
-         // $issue = $request->issue;
         $initials = $request->autInitials;
         $autship = $request->autShip;
         $inst = $request->autInst;
@@ -24,15 +23,14 @@ class DataCommunication extends Controller
             echo $snames[$x]." - ".$initials[$x]." - ".$autship[$x]." - ".$inst[$x]."<br>";
         }
     }
-     function addPublication(Request $request){
+        function addPublication(Request $request){
         $data = Input::except(array('_token','submit','fname','mname','sname','authShip','autInst','otherResearchArea','researchArea'));
         $fname = $request->fname;
         $mname = $request->mname;
         $sname = $request->sname;
         $inst = $request->autInst;
-        // $abstract = nl2br($request->abstract);
+        $centre = $request->input('autInst');
         $authship = $request->authShip;
-        // $issue = $request->$issue;
         $otherRA = $request->otherResearchArea;
         $rArea = $request->researchArea;
         $data = array_merge($data,array("researchArea"=>$rArea));
@@ -44,10 +42,7 @@ class DataCommunication extends Controller
         $data = array_merge($data,array("researchArea"=>$rArea));
         $rule = array(
             'title'=>'required',
-            'researchArea'=>'required',
-      //       'citation'=>'required',
-            // 'pub_year'=>'required',
-            );
+                  );
 
         $validator = Validator::make($data,$rule);
         if ($validator->fails()) {
@@ -63,21 +58,11 @@ class DataCommunication extends Controller
                     'middlename'=>$mname[$x],
                     'surname'=>$sname[$x],
                     'role'=>$authship[$x],
-                    'institution'=>$inst[$x]
-                   
+                    'centre'=>$centre[$x]
                     ]);
                 }else{
                     echo "Error Occured";
                 }
-
-               $data = array('name'=>"Nimr Publication Administrator");
-   
-      Mail::send(['text'=>'mail'], $data, function($message) {
-         $message->to('alicejonathan8@gmail.com','nimrpublication@gmail.com', 'Nimr Publication')->subject
-            ('New Publication have been uploaded');
-         $message->from('nimrpublication@gmail.com','Nimr Publication');
-      });
-   
             }
             return redirect()->back()->with('success','you have succesful uploaded publication');   
         }

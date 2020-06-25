@@ -3,10 +3,12 @@
 <header class="section2 background-dark">
   <div class="line text-center">        
     <h1 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1">Publication Uploading Panel</h1>
-      </div>
+    <!-- <p class="margin-bottom-0 text-size-16">Fill the form below </p> -->
+  </div>
 </header>
-<div id="content-wrapper">
-<div class="row tokeza">
+<div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="left_content" style="margin-bottom:10px;">
 <div class="col-md-11 " style="margin-left:50px;">
 @if (count($errors) > 0)
     <div class="alert alert-danger">
@@ -36,17 +38,10 @@
 	  	</div>
 	</div>
 	<div class="form-group row">
-	  	<label for="journal" class="col-md-2">Journal Title</label>
-	  	<div class="col-md-10">
-	   	 <input class="form-control" type="text" name="journal" value="{{old('journal')}}"  id="journal">
-	  	</div>
-	</div>
-	
-	<div class="form-group row">
 	<div class="col-md-2">
 	  	<label for="author">Authors</label>
 	  	<div class="col-md-1 pull-right">
-		<span class="fa fa-plus" id="add-auth" title="Add field"></span>
+		<span class="fa fa-plus"id="add-auth" title="Add field"></span>
 
 	  	</div>
 	</div>
@@ -62,29 +57,29 @@
 	  	</div>
 	  	<div class="col-md-2">
 	  		<select class="form-control" type="text" name="authShip[]" value="{{old('authShip[]')}}">
-	  		<option value="" selected disabled>Authorship</option>
+	  		<option value="">Authorship</option>
 	  		<option value="First">First Author</option>
 	  		<option value="Co">Co Author</option>
 	  		<option value="Last">Last Author</option>
 	  		</select>
 	  	</div>
-	  	<div class="col-md-2">
-	  		<select class="form-control" type="text" name="autInst[]" value="{{old('autInst[]')}}">
-	   	 	<option value="" selected disabled >Choose center</option>
-	   	 	@foreach($cents as $c)
-	   	 	<option value="{{$c->c_name}}">NIMR {{$c->c_name}}</option>
-	   	 	@endforeach
-	   	 </select>
+	  	<div class="col-md-2" style="display: none;">
+	  		<select class="form-control" type="text" name="centre[]" value="{{old('centre[]')}}" onchange="CheckColors(this.value);">
+	  			<option>Institution</option>
+	  			<option>NIMR</option>
+				<option value="others">Other</option>			
+	  		</select>
+	  		<input type="text" name="autInst[]" id="institute" placeholder="Institute name" style='display:none;'/>
 	  	</div>
 
 	</div>
 
 	<div id="more-authors"></div>
 	<div class="form-group row">
-	  	<label for="year" class="col-md-2">Article Information</label>
+	  	<label for="year" class="col-md-2">Other Information</label>
 	  	<div class="col-md-2">
 	   	<select class="form-control" type="text" name="pub_year" value="{{old('pub_year')}}"  id="year">
-	  	<option value="" selected disabled >Publication Year</option>
+	  	<option value="">Publication Year</option>
 	  	<?php
 	  	$year = date("Y");
 	  	for($x=0; $x <50;$x++){
@@ -96,25 +91,27 @@
 	  	<div class="col-md-2">
 	   	 <input class="form-control" placeholder="Volume" type="text" name="volume" value="{{old('volume')}}"  id="volume">
 	  	</div>
-	  
 	  	<div class="col-md-2">
-
-		 <input class="form-control" placeholder="Issue" type="text" name="issue" value="{{old('issue')}}"  id="issue">
-	  	</div>
-			<div class="col-md-2">
 	   	 <input class="form-control" type="text" placeholder="Start Page" name="startpage" value="{{old('startpage')}}"  id="startpage">
 		 	   	 
 	  	</div>
 	  	<div class="col-md-2">
-	  <input class="form-control" placeholder="End Page" type="text" name="endpage" value="{{old('endpage')}}"  id="endpage">
-	  	</div>
-	</div> 
 
-	<div class="form-group row">
-	  	<label for="pub-type" class="col-md-2">Center Publication done</label>
-	  	<div class="col-md-10">
+		 <input class="form-control" placeholder="Issue" type="text" name="issue" value="{{old('issue')}}"  id="issue">
+	  	</div>
+		
+	  	<div class="col-md-2">
+	<input class="form-control" placeholder="End Page" type="text" name="endpage" value="{{old('endpage')}}"  id="endpage">
+	  	</div>
+	</div>
+	<div class="form-group row" style=" position: absolute;
+  top: 140px;
+  right: 0;
+  width: 200px;
+   ">
+		<div class="col-md-2" style="width: 200px;">
 	   	 <select class="form-control" type="text" name="centre" value="{{old('centre')}}">
-	   	 	<option value="" selected disabled>Choose center</option>
+	   	 	<option value="">Choose Centre</option>
 	   	 	@foreach($cents as $c)
 	   	 	<option value="{{$c->id}}">NIMR {{$c->c_name}}</option>
 	   	 	@endforeach
@@ -125,23 +122,22 @@
 	  	<label for="pub-type" class="col-md-2">Publication Type</label>
 	  	<div class="col-md-10">
 	   	 <select class="form-control" type="text" name="pub_type" value="{{old('pub_type')}}"  id="pub-type">
-	   	 <option value="" selected disabled>Choose Publication Type</option>
+	   	 <option></option>
 	   	 @foreach($pubTypes as $type)
 	   	 <option value="{{$type->id}}">{{$type->type}}</option>
 	   	 @endforeach
 	   	 </select>
 	  	</div>
 	</div>
-	
 	<div class="form-group row">
 	  	<label for="research-area" class="col-md-2">Research Area</label>
 	  	<div class="col-md-10">
 	   	 <select onchange="CheckResearch(this.value);" class="form-control" type="text" name="researchArea" value="{{old('researchArea')}}">
-	   	 	<option value="" selected disabled >Choose Research Area</option>
+	   	 	<option value=""></option>
 	   	 	@foreach($area as $a)
 	   	 	<option value="{{$a->id}}">{{$a->area}}</option>
 	   	 	@endforeach
-	   	 	<!-- <option value="others">Other</option> -->
+	   	 	<option value="others">Other</option>
 	   	 </select>
 	  	</div>
 	</div>
@@ -152,9 +148,14 @@
 	   	 <input class="form-control" type="text" name="otherResearchArea">
 	  	</div>
 	</div>
-	 
 	<div class="form-group row">
-	  	<label for="doi" class="col-md-2">Link to journal</label>
+	  	<label for="journal" class="col-md-2">Journal</label>
+	  	<div class="col-md-10">
+	   	 <input class="form-control" type="text" name="journal" value="{{old('journal')}}"  id="journal">
+	  	</div>
+	</div>
+	<div class="form-group row">
+	  	<label for="doi" class="col-md-2">Link to publication</label>
 	  	<div class="col-md-10">
 	   	 <input class="form-control" type="text" name="link" value="{{old('contact')}}"  id="doi">
 	  	</div>
@@ -163,6 +164,12 @@
 	  	<label for="doi" class="col-md-2">Doi</label>
 	  	<div class="col-md-10">
 	   	 <input class="form-control" type="text" name="doi" value="{{old('doi')}}"  id="doi">
+	  	</div>
+	</div>
+	<div class="form-group row">
+	  	<label for="doi" class="col-md-2">Contact (Email)</label>
+	  	<div class="col-md-10">
+	   	 <input class="form-control" type="text" name="contact" value="{{old('contact')}}"  id="doi">
 	  	</div>
 	</div>
 	<div class="form-group row">

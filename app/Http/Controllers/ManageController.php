@@ -64,7 +64,8 @@ class ManageController extends Controller
     }
       function approve($id){
         $uploader = DB::table('users')
-                        ->join('publication','publication.uploader', '=', 'users.id')
+                         ->where('publication.p_id',$id)
+                        ->join('publication', 'users.id', '=', 'publication.uploader' )
                         
                         ->first();
         $pubs =  DB::table('publication')
@@ -73,13 +74,39 @@ class ManageController extends Controller
                    ->leftjoin('research_area', 'publication.researchArea', '=', 'research_area.id')
                    ->first();
         $nauthors = DB::table('authors')
-                            ->where('authors.p_id', $id)
-                           
-                            
+                            ->where('authors.p_id', $id)                         
+                            ->get();
+
+          $authors = DB::table('authors')
+                                                
                             ->get();
 
         return view('approve')
-                ->with(['pubs'=>$pubs,'nauthors'=>$nauthors,'uploader'=>$uploader]);
+                ->with(['pubs'=>$pubs,'nauthors'=>$nauthors,'uploader'=>$uploader, 'authors'=>$authors]);
+
+    }
+
+    function approveone($id){
+        $uploader = DB::table('users')
+                         ->where('publication.p_id',$id)
+                        ->join('publication', 'users.id', '=', 'publication.uploader' )
+                        
+                        ->first();
+        $pubs =  DB::table('publication')
+                   ->where('publication.p_id',$id)
+                   ->join('publication_types', 'publication.pub_type', '=', 'publication_types.id')
+                   ->leftjoin('research_area', 'publication.researchArea', '=', 'research_area.id')
+                   ->first();
+        $nauthors = DB::table('authors')
+                            ->where('authors.p_id', $id)                         
+                            ->get();
+
+          $authors = DB::table('authors')
+                                                
+                            ->get();
+
+        return view('uploadedpublication')
+                ->with(['pubs'=>$pubs,'nauthors'=>$nauthors,'uploader'=>$uploader, 'authors'=>$authors]);
 
     }
     function reports(){

@@ -15,8 +15,6 @@ Route::post("/search-query","PageController@search");
 Route::get("/","PageController@loadHome");
 Route::get("/home2","PageController@loadHome");
 Route::get("test","ManageController@loadHome");
-// Route::get("/","PageController@loadHome");
-// Route::post('login', [ 'as' => 'login', 'uses' => 'PageController@loadLogin']);
 Route::get("/login","PageController@loadLogin");
 Route::get("/logout","RegisterController@logout");
 Route::get("/register","PageController@loadRegister");
@@ -32,8 +30,10 @@ Route::get("/profile","PageController@reports");
 
 Route::post("/approve","PublicationController@approve");
 
+//Add publication 
 Route::post("/add-publication","PublicationController@addPublication");
 Route::post("/add-publication","DataCommunication@addPublication");
+
 Route::post("/addpublication","DataCommunication@addPublication");
 
 
@@ -43,7 +43,10 @@ Route::post("/search","PageController@search");
 
 //view publication by ID
 Route::get("/publication/{id}","PageController@viewPublication");
+Route::get("/authors/au_id","PageController@viewAuthor");
+Route::get("/uppublication/{id}","PageController@upPublication");
 Route::get("/uploaded-publication","PageController@viewonePublication");
+
 Route::get("/center/{id}","PageController@viewPublicationByCenter");
 
 Route::get("/adminpublication/{id}","PageController@viewadminPublication");
@@ -51,20 +54,23 @@ Route::get("/adminpublication/{id}","PageController@viewadminPublication");
 
 //approve publications by ids
 Route::get("/publications/{id}","ManageController@approve");
+Route::get("/uploadedpublication/{id}","ManageController@approveone");
+
 Route::post("/approve","PublicationController@approve");
+Route::post("/uploadedpublication","PublicationController@approveone");
 
 Route::get("/file","PageController@viewFile");
 Route::post("/publicationlist_datatable","PageController@dataTableList");
 Route::get("/ajax/{malaria}","AjaxController@index");
 
-Route::get('management', 'PageController@management');
+
 
 
 
 //Search by year
 Route::get("/tryreport/{id}","ReportController@Searchreport");
 Route::get("/yearreport/{year}","ReportController@Yearreport");
-Route::get('pdfyear/{year}',array('as'=>'pdfyear','uses'=>'ReportController@pdfyear'));
+Route::get('/yearpdf',array('as'=>'pdfyear','uses'=>'ReportController@Yearreport'));
 
 Route::get('/chart', 'GoogleGraph@chart');
 
@@ -78,7 +84,7 @@ Route::resource('users','UserController');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get("/reportview","CenterController@index");
+Route::get("/reportview","ReportController@overallreport");
 // Route::get("/pdfreport", [ "as" => 'printpdf', 'uses' => 'PdfController@index']);
 
 Route::get('/pdfreport', 'PdfController@index');
@@ -93,7 +99,7 @@ Route::get('/approved',"PublicationController@approvedpub");
 Route::get('/viewpub',"PublicationController@viewpub1");
 
 
-Route::get('pdf','ReportController@generatePDF');
+Route::get('pdf','ReportController@pdfgenerate');
 
 
 
@@ -104,7 +110,7 @@ Route::post('/date_range/fetch_data', 'ReportController@fetch_data')->name('date
 //PFD REPORT TRY
 Route::get('pdfview',array('as'=>'pdfview','uses'=>'ReportController@pdfview'));
 
-Route::get('pdfviews',array('as'=>'pdfviews','uses'=>'CenterController@index'));
+Route::get('pdfviews',array('as'=>'pdfviews','uses'=>'ReportController@pdfgenerate'));
 
 
 

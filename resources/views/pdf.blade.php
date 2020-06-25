@@ -1,15 +1,65 @@
 <!DOCTYPE html>
 <html>
+    
 <head>
-	<title>Hi</title>
+   <title>NIMR PUBLICATIONS</title>
+
+
 </head>
+
 <body>
-	<h1>Welcome to ItSolutionStuff.com - {{ $title }}</h1>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+  <div class="container">
+
+      
+          
+     <table class="table table-bordered table-striped" >
+     	
+     	<tr><th colspan="5"><center><b>PUBLICATIONS DATABASE REPORT</b></center></th></tr>
+     	 <tr> <th colspan="5"><center>REPORTS SHOW OVERALL  SUMMARY OF PUBLICATIONS UPLOADED</center></th></tr> 
+	
+		<tr>
+			<th></th>
+			<th colspan="4">TITLE</th>
+		</tr>
+		@foreach ($pubs as $key => $item)
+		<tr>
+			
+			
+			<td>{{ ++$key }}</td>
+			 <td colspan="4">{{$item->title}}</td>
+            </tr>
+ @endforeach
+					</tr>
+		
+	</table>            
+</table>
+       </div>
+
+
+
+
+
+
+</div>
+</div>
+
 </body>
+</html>
+
+
+
+<html>
+
+
+
+	<br/>
+	
+
+
+	
+</div>
+
+</div>
+
 </html>

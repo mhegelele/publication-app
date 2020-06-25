@@ -4,11 +4,12 @@
 <header class="section2 background-dark">
   <div class="line text-center">        
     <h1 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1">Publication Infomation</h1>
-    <p>This page provides detailed information about the selected publication. Please click on any text which is underlined to find more information.</p>
+    <p>This page provides detailed information about the selected publication.</p>
   </div>
 </header>
-<div class="row tokeza" style="margin-bottom:30px; margin-left:200px;">
-<div class="col-md-10 ">
+<div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="left_content" style="margin-bottom:20px;">
 	<div class="citation">
 		<h3 class="title">Title</h3>
 		<p>{{$pub->title}}</p>
@@ -52,8 +53,20 @@
 		<div class="citation">
 	<strong>Approved Date: </strong> {{$pub->approvedDate}} 
 	</div>
-		</div>
-</div>
+	<div class="citation">
+	<strong>Centre: </strong> {{$pub->c_name}} 
+	</div>
+	<div class="citation">
+	<strong>Uploader: </strong> {{$pub->name}} {{$pub->sname}} {{$pub->mname}}
+	</div>
+	<div class="citation">
+	<strong>Email: </strong> {{$pub->email}}
+	</div>
+	<div class="citation">
+	<strong>Phone number: </strong> {{$pub->mobile}}
+	</div>
+	</div>
+
 </div>
 </div>
 

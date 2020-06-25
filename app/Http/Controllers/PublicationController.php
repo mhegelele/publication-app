@@ -42,7 +42,8 @@ class PublicationController extends Controller
                                           
 
                                             // ->get();
-            return view('manage')->with(['pubs'=>$pubs,'text'=>$text])->with('i', (request()->input('page', 1) - 1) * 5);
+            return view('manage')->with(['pubs'=>$pubs,'text'=>$text])
+            ->with('i', (request()->input('page', 1) - 1) * 5);
         }else{
             return redirect()->back();
         }
@@ -150,15 +151,28 @@ return view('viewpub')->with(array('pubs'=>$pubs));
     //     }
     // }
 
+    function approveone(Request $request){
+        $id = $request->id;
+        $user = Auth::id();
+        $date = date("Y-m-d");
+        $pub_year = $request->pub_year;
+        $abstract = $request->abstract;
+        $title = $request->title;
+        $citation = $request->citation;
+        DB::table('publication')->where('p_id',$id)->update(['pub_year'=>$pub_year, 'title'=>$title, 'abstract'=>$abstract, 'citation'=>$citation]);
+        return redirect()->back()->with('success','Publication successfully Updated');
+    }
+
 function approve(Request $request){
         $id = $request->id;
         $user = Auth::id();
         $date = date("Y-m-d");
         $pub_year = $request->pub_year;
+        $abstract = $request->abstract;
         $title = $request->title;
         $citation = $request->citation;
-        DB::table('publication')->where('p_id',$id)->update(['status' => 'approved','approvedBy'=>$user,'approvedDate'=>$date, 'pub_year'=>$pub_year, 'title'=>$title, 'citation'=>$citation]);
-        return redirect()->back()->with('success','Publication is now Approved');
+        DB::table('publication')->where('p_id',$id)->update(['status' => 'approved','approvedBy'=>$user,'approvedDate'=>$date, 'pub_year'=>$pub_year, 'title'=>$title, 'abstract'=>$abstract, 'citation'=>$citation]);
+        return redirect()->back()->with('success','Publication successfully Approved');
     }
     /**
      * Show the form for editing the specified resource.
@@ -237,10 +251,7 @@ function approve(Request $request){
         }else{
             return redirect()->back();
         }
-        // $publications = Publication::latest()->paginate(10);
-
-        // return view('publications.index',compact('publication'))
-        //     ->with('i', (request()->input('page', 1) - 1) * 5);
+       
     }
 
 
@@ -250,9 +261,7 @@ function approve(Request $request){
         $mname = $request->mname;
         $sname = $request->sname;
         $inst = $request->autInst;
-        // $abstract = nl2br($request->abstract);
         $authship = $request->authShip;
-        // $issue = $request->$issue;
         $otherRA = $request->otherResearchArea;
         $rArea = $request->researchArea;
         $data = array_merge($data,array("researchArea"=>$rArea));
@@ -265,8 +274,7 @@ function approve(Request $request){
         $rule = array(
             'title'=>'required',
             'researchArea'=>'required',
-      //       'citation'=>'required',
-             'pub_year'=>'required',
+            'pub_year'=>'required',
             );
 
         $validator = Validator::make($data,$rule);
@@ -281,15 +289,14 @@ function approve(Request $request){
                     'p_id'=>$id,
                     'firstname'=>$fname[$x],
                     'middlename'=>$mname[$x],
-                    'surname'=>$sname[$x],
-                    'role'=>$authship[$x]
-                   
+                    'surname'=>$sname[$x]
+                                       
                     ]);
                 }else{
                     echo "Error Occured";
                 }
             }
-            return redirect()->back()->with('success','you have succesful uploaded publication');   
+            return redirect()->back()->with('success','Publication successfully Uploaded');   
         }
     }
 

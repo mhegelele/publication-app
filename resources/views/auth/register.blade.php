@@ -2,9 +2,10 @@
 <html>
     
 <head>
-   <title>NIMR PUBLICATIONS</title>
-
-     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NIMR | PDB</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{{ url('assets/css/font-awesome.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ url('assets/css/animate.css') }}">

@@ -21,8 +21,8 @@ Route::get("/register","PageController@loadRegister");
 Route::post("/reg_account","RegisterController@userRegistration");
 Route::post("/login","RegisterController@login");
 
-Route::get("/add-publication","PageController@uploadPublication");
-Route::get("/addpublication","PageController@uploadPublication");
+
+
 
 Route::get("/management","PageController@management");
 Route::get("/profile","PageController@reports");
@@ -30,9 +30,10 @@ Route::get("/profile","PageController@reports");
 
 Route::post("/approve","PublicationController@approve");
 
-//Add publication 
+//Add publication route 
 Route::post("/add-publication","PublicationController@addPublication");
-Route::post("/add-publication","DataCommunication@addPublication");
+//Route::post("/add-publication","DataCommunication@addPublication");
+Route::get("/add-publication","PageController@uploadPublication");
 
 Route::post("/addpublication","DataCommunication@addPublication");
 
@@ -43,6 +44,7 @@ Route::post("/search","PageController@search");
 
 //view publication by ID
 Route::get("/publication/{id}","PageController@viewPublication");
+
 Route::get("/authors/au_id","PageController@viewAuthor");
 Route::get("/uppublication/{id}","PageController@upPublication");
 Route::get("/uploaded-publication","PageController@viewonePublication");
@@ -55,22 +57,32 @@ Route::get("/adminpublication/{id}","PageController@viewadminPublication");
 //approve publications by ids
 Route::get("/publications/{id}","ManageController@approve");
 Route::get("/uploadedpublication/{id}","ManageController@approveone");
+Route::get("/author/{au_id}","PublicationController@showauthor");
+
 
 Route::post("/approve","PublicationController@approve");
+Route::post("/deletepublication","PublicationController@trash");
+Route::post("/editauthor","PublicationController@Editauthor");
+
 Route::post("/uploadedpublication","PublicationController@approveone");
 
 Route::get("/file","PageController@viewFile");
 Route::post("/publicationlist_datatable","PageController@dataTableList");
 Route::get("/ajax/{malaria}","AjaxController@index");
 
-
-
+//Report....................................
+Route::get("/reportview","ReportController@overallreport");
 
 
 //Search by year
 Route::get("/tryreport/{id}","ReportController@Searchreport");
 Route::get("/yearreport/{year}","ReportController@Yearreport");
 Route::get('/yearpdf',array('as'=>'pdfyear','uses'=>'ReportController@Yearreport'));
+
+
+Route::get('/yearPDF/{pub_year}', 'ReportController@yearPDF');
+
+Route::get('/centrePDF/{centre}', 'ReportController@centrePDF');
 
 Route::get('/chart', 'GoogleGraph@chart');
 
@@ -88,9 +100,6 @@ Route::get("/reportview","ReportController@overallreport");
 // Route::get("/pdfreport", [ "as" => 'printpdf', 'uses' => 'PdfController@index']);
 
 Route::get('/pdfreport', 'PdfController@index');
- // Route::get('pdf', 'NotesController@pdf');
-
-// Route::get("/pdfreport","PdfController@index");
 Route::get('/manage',"PublicationController@index");
 
 //approved publications 
@@ -114,6 +123,34 @@ Route::get('pdfviews',array('as'=>'pdfviews','uses'=>'ReportController@pdfgenera
 
 
 
+//Test add publication
+
+Route::get("/testpublication","PublicationController@testPublication");
+Route::post("testpublication","PublicationController@createPublication");
 
 
+// Setting......................................
+Route::get("setting","PublicationController@settingPublication");
+//Edit centre
+Route::get("/centres/{id}","PublicationController@EditSetting");
+Route::post("/editcentre","PublicationController@editcentre");
 
+//Edit publication type
+Route::get("/types/{id}","PublicationController@EditType");
+Route::post("/edit-type","PublicationController@editTypes");
+
+//Edit research area
+Route::get("/areas/{id}","PublicationController@EditArea");
+Route::post("/edit-areas","PublicationController@editAreas");
+
+//Add research area/ Centre/ publication type
+Route::post("/add-centre","PublicationController@AddCentre");
+Route::post("/add-area","PublicationController@AddArea");
+Route::post("/add-type","PublicationController@AddType");
+//End of Setting........................
+
+//trash...........................................
+Route::get('/trash',"PublicationController@ShowTrash");
+Route::get("/trashs/{id}","PublicationController@ViewTrash");
+Route::post("/trash","PublicationController@EditTrash");
+// End of trash........................

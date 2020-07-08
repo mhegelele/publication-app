@@ -64,7 +64,7 @@ function overallreport(Request $request)
 
            $ap1 = DB::table('publication')->where('status','approved')
                                             ->select('p_id','title')
-                                            ->get();
+                                           ->paginate(10);
 
              $pubs = DB::table('publication')->where('status','approved')
                                             ->select('p_id','title')
@@ -76,7 +76,7 @@ function overallreport(Request $request)
                 ->get();
             $app1 = DB::table('publication')->where('status','pending')
                                             ->select('p_id','title')
-                                            ->get();
+                                          ->paginate(10);
             $pc = DB::table('centres')
                 ->select(DB::raw('count(*) as centre'))
                 ->get();
@@ -85,7 +85,7 @@ function overallreport(Request $request)
 
              $year = DB::table('publication')
                     ->groupBy('pub_year')
-                    ->get();
+                   ->paginate(10);
 
  view()->share('pubs',$pubs);         
 
@@ -97,7 +97,8 @@ function overallreport(Request $request)
     return view('reportview')->with('roles',$r)->with(['centres'=>$c])->with(['years'=>$y])
         ->with(['pubs'=>$p])->with(['users'=>$u])->with(['users0'=>$u0])->with(['users1'=>$u1])->
         with(['pubs1'=>$ap])->with(['pubs2'=>$app])->with(['centers'=>$pc])->with(['cents'=>$cents])->
-        with(['year'=>$year])->with(['pubs10'=>$ap1])->with(['pubs20'=>$app1]);
+        with(['year'=>$year])->with(['pubs10'=>$ap1])->with(['pubs20'=>$app1])
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     
     }
 
@@ -143,7 +144,7 @@ function Try(){
         } 
 
 
-        function Searchreport($id){
+function Searchreport($id){
 
 
              $pubs = DB::table('publication')
@@ -185,7 +186,7 @@ function Try(){
                  ->with(['year'=>$year])->with(['pub'=>$pub])->with(['viewpub'=>$viewpub])->with('i', (request()->input('page', 1) - 1) * 5);
 
         }
-    
+   // Report by year 
  function Yearreport(Request $request,$pub_year){
 
 
@@ -212,7 +213,7 @@ function Try(){
                 ->where('publication.status','=','approved')
                 ->get(); 
 
-            $pdf = PDF::loadView('yearpdf', $viewpub);
+            
   
                      return view('year')->with(['pubs'=>$pubs, 'c'=>$c])->with(['pub'=>$pub])->
                      with(['viewpub'=>$viewpub])->with('i', (request()->input('page', 1) - 1) * 5)
@@ -220,8 +221,32 @@ function Try(){
 
         }
 
+public function yearPDF(Request $request,$pub_year)
+{        
+
+         $pubs = DB::table('publication')
+                ->where('publication.pub_year','=',$pub_year)
+                           ->get() ;
+
+                            view()->share('pubs',$pubs, compact('pub_year'));
+                            $pdf = PDF::loadView('yearpdf', compact('pub_year'));
+            return $pdf->download('yearreport.pdf', compact('pub_year'));
+           return view('yearpdf', compact('pub_year'))->with(['pubs'=> $pubs]);
+    }
 
 
+public function centrePDF(Request $request,$centre)
+{        
+
+         $pubs = DB::table('publication')
+                  ->where('publication.centre','=',$centre)
+                           ->get() ;
+
+                            view()->share('pubs',$pubs);
+                            $pdf = PDF::loadView('centrepdf');
+            return $pdf->download('centrereport.pdf');
+           return view('centrepdf')->with(['pubs'=> $pubs]);
+    }
 
   public function generatePDF()
     {
@@ -240,7 +265,7 @@ function index()
      return view('date_range');
     }
 
-    function fetch_data(Request $request)
+function fetch_data(Request $request)
     {
      if($request->ajax())
      {

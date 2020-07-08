@@ -2,21 +2,18 @@
 
 
 @section('content')
-   
+    <header class="section2 background-dark" style="margin-left:30px;">
+  <div class="line">        
+    <h5 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1">
+  <a href="{{ url('home')}}">Home </a>&nbsp;&nbsp; /&nbsp;&nbsp;<a href="{{ url('manage')}}"> Manage</a>
+  &nbsp;&nbsp;/&nbsp;&nbsp; <a href="" style="color:#2F76A5;">Users</a></h5>
+  </div>
+  <div class="pull-left">
+                         
+    
+            </div>
+</header> 
 <div class="col-lg-8 col-md-8 col-sm-8" >
-  <!--   <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Laravel 5.6 CRUD Example from scratch</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('users.create') }}"> Create New Product</a>
-            </div>
-        </div>
-    </div> -->
-
-
-  
      <div class="single_sidebar" style="margin-bottom: 30px;">
 <h2><span>USER LIST</span></h2>
 </div>
@@ -25,7 +22,8 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-    <table class="table table-bordered responsive">
+    
+    <table class="table table-bordered table-striped responsive" width="50%">
         <tr>
             <th width="20px">No</th>
             <th>First name</th>
@@ -33,7 +31,6 @@
             <th>Last name</th>
             <th width="100px">Email</th>
             <th>Phonenumber</th>
-            <th>Role </th>
             <th colspan="2">Action</th>
         </tr>
         @foreach ($users as $user)
@@ -44,7 +41,6 @@
             <td> {{ $user->mname }} </td>
             <td>{{ $user->email }}</td>
             <td>{{ $user->mobile }}</td>
-            <td>{{ $user->level }}</td>
             <td>
                 <form action="{{ route('users.destroy',$user->id) }}" method="POST">
 
@@ -87,6 +83,9 @@
           </div></a>
                   <a href="{{url('reportview')}}"><div class="citation">
             <h5>REPORT</h5>
+          </div></a>
+          <a href="{{url('setting')}}" ><div class="citation">
+           <h5>SETTINGS</h5>
           </div></a>
                    <br><br>
   

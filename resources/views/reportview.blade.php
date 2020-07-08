@@ -1,6 +1,16 @@
 @extends('layout.new')
 @section('content')
-   
+  
+   <header class="section2 background-dark" style="margin-left:30px;">
+  <div class="line">        
+    <h5 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1">
+  <a href="{{ url('home')}}">Home </a>&nbsp;&nbsp; /&nbsp;&nbsp;<a href="{{ url('manage')}}"> Manage</a>&nbsp;&nbsp;/&nbsp;&nbsp; <a href="" style="color:#2F76A5;">Report</a></h5>
+  </div>
+  <div class="pull-left">
+                         
+    
+            </div>
+</header>  
 <div class="col-lg-8 col-md-8 col-sm-8"  >
       <div class="single_sidebar" style="margin-bottom: 30px;">
 <h2><span>REPORT</span></h2>
@@ -69,6 +79,7 @@
               <td colspan="2">{{$pub20->title}}</td>
             </tr>
  @endforeach
+
   <!--  <tr>
 <td colspan="2"><a href="{{ route('pdfview',['download'=>'pdf']) }}" style="color:red; margin-left:79%;  "><b>DOWNLOAD PDF</b> <span class="fa fa-file-pdf-o"></span></a></td>
   </tr> -->
@@ -159,7 +170,12 @@
           </div></a>
                   <a href="{{url('reportview')}}" style="color:white;"><div class="citation" style=" background-color:#2F76A5;">
             <h5>REPORT</h5>
-          </div></a>  @endif
+          </div></a>
+
+<a href="{{url('setting')}}" ><div class="citation">
+           <h5>SETTINGS</h5>
+          </div></a>
+            @endif
           @endif
         
           <br><br>

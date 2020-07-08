@@ -2,7 +2,10 @@
 @section('content')
  <section id="contentSection">
 <header class="section2 background-dark">
-  <div class="line text-center">        
+  <div class="line text-center">
+  <h5 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1">
+ <a href="{{ url('home')}}">Home </a>&nbsp;&nbsp; /&nbsp;&nbsp;<a href="{{ url('manage')}}">  Manage</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="{{ url('approved')}}"> Approved Publication</a>&nbsp;&nbsp;/&nbsp;&nbsp; <a href="" style="color:#2F76A5;">Publication Infomation</a></h5>
+         
     <h1 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1">Publication Infomation</h1>
     <p>This page provides detailed information about the selected publication.</p>
   </div>

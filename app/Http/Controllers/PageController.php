@@ -271,15 +271,16 @@ class PageController extends Controller
         }
         $authors = rtrim($first.$co.$last,", ").".";
 
-        $pubs = DB::table('publication')
+        $pub = DB::table('publication')
                     ->where('publication.p_id',$id)
+
                      ->join('authors', 'publication.p_id', '=', 'authors.p_id')
                    ->join('publication_types', 'publication.pub_type', '=', 'publication_types.id')
-                      ->join('research_area', 'publication.researchArea', '=', 'research_area.id')
+                      ->leftjoin('research_area', 'publication.researchArea', '=', 'research_area.id')
                       ->leftJoin('centres','publication.centre', '=','centres.id')
                       ->leftJoin('users', 'publication.uploader', '=', 'users.id')
                     ->first();
-        return view('view-adminpublication')->with(['pub'=>$pubs])->with('authors',$authors);
+        return view('view-adminpublication')->with(['pub'=>$pub])->with('authors',$authors);
     }
 
 function upPublication($id){
@@ -319,14 +320,16 @@ public function viewonePublication()
                if(Auth::check()){
                      $pubs = DB::table('publication')
                                     ->where("publication.uploader", Auth::user()->id)
+                                   ->where('level', '!=',  1)
                                     ->where('status','pending')
                                     ->select('publication.*')
-                                    ->get();
+                                       ->paginate(10);
                           $pub = DB::table('publication')
                                     ->where("publication.uploader", Auth::user()->id)
                                     ->where('status','approved')
+                                    ->where('level', '!=',  1)
                                     ->select('publication.*')
-                                    ->get();
+                                     ->paginate(10);
             return view('uploaded-publication')->with(['pubs'=>$pubs])->with(['pub'=>$pub])
             ->with('i', (request()->input('page', 1) - 1) * 5);
             

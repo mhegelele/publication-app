@@ -1,10 +1,21 @@
 @extends('layout.new')
 @section('content')
-   
+  
+  <header class="section2 background-dark" style="margin-left:30px;">
+  <div class="line">        
+    <h5 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1">
+<a href="{{ url('home')}}">Home </a>&nbsp;&nbsp; /&nbsp;&nbsp;<a href="{{ url('manage')}}"> Manage</a>&nbsp;&nbsp;/&nbsp;&nbsp; <a href="" style="color:#2F76A5;">Publications for Approval</a></h5>
+  </div>
+  <div class="pull-left">
+                         
+    
+            </div>
+</header> 
 <div class="col-lg-8 col-md-8 col-sm-8" >
    
      <div class="single_sidebar" style="margin-bottom: 30px;">
-<h2><span>UPLOADED PUBLICATIONS FOR APPROVAL</span></h2>
+<h2 class="text-white margin-top-bottom-40"><span>
+  UPLOADED PUBLICATIONS FOR APPROVAL</span></h2>
 </div>
 
 
@@ -34,7 +45,8 @@
       </br>
       
 
-<a href="{{url('manage')}}"  style="color:white;"><div class="citation" style=" background-color:#2F76A5;">
+<a href="{{url('manage')}}"  style="color:white;">
+  <div class="citation" style=" background-color:#2F76A5;">
            <h5> PUBLICATIONS FOR APPROVAL</h5>
           </div></a>
  <a href="{{url('approved')}}" ><div class="citation" >
@@ -47,7 +59,9 @@
           <a href="{{url('reportview')}}"><div class="citation" >
             <h5>REPORT</h5>
           </div></a> 
-          
+           <a href="{{url('setting')}}"><div class="citation" >
+            <h5>SETTING</h5>
+          </div></a>  
     
           <br><br>
   

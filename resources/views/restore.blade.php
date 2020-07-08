@@ -3,8 +3,8 @@
  <header class="section2 background-dark" style="margin-left:30px;">
   <div class="line">        
     <h5 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1">
-  <a href="{{ url('home')}}">Home </a>&nbsp;&nbsp; /&nbsp;&nbsp;<a href="{{ url('manage')}}"> Manage</a>&nbsp;&nbsp;/&nbsp;&nbsp; <a href="" style="color:#2F76A5;">Publication for Approval</a></h5>
-  <h1 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1" style="margin-left: 20%;">Publication for Approval</h1>
+  <a href="{{ url('home')}}">Home </a>&nbsp;&nbsp; /&nbsp;&nbsp;<a href="{{ url('manage')}}"> Manage</a>&nbsp;&nbsp;/&nbsp;&nbsp; <a href="{{ url('setting')}}"> Settings</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="{{ url('trash')}}"> Trash</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="" style="color:#2F76A5;">Restore publication</a></h5>
+  <h1 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1" style="margin-left: 20%;">Restore Publication </h1>
   </div>
   <div class="pull-left">
                          
@@ -26,7 +26,7 @@
 
 </div>
 
-<form method="POST" action="{{url('approve')}}">
+<form method="POST" action="{{url('trash')}}">
 			{{csrf_field()}}
 	<div class="col-md-7 screen-height" style="margin-left:50px;">
 		<div class="letter-box">
@@ -52,7 +52,7 @@ rows="5" cols="20">{{$pubs->abstract}}</textarea>
 		<div class="letter-box">
 			<h3 class="title">Authors</h3>
 		  @foreach($nauthors as $au)
- <a href="{{url('/author/'.$au->au_id)}}">{{$au->firstname}} {{$au->middlename}} {{$au->surname}}
+ <a href="">{{$au->firstname}} {{$au->middlename}} {{$au->surname}}
 	&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;{{$au->role}}</a>  <br><br>
     @endforeach
 
@@ -114,15 +114,12 @@ rows="5" cols="20">{{$pubs->abstract}}</textarea>
    <td>Uploader Mobile:</td><td> {{$uploader->mobile}}</td>
 </tr>
 	 <tr>
-<td><input type="hidden" name="id" value="{{$pubs->p_id}}">
-      <input type="submit" value="Approve" name="submit" class="btn btn-primary" {{session()->has('success')? 'disabled':''}}>
-    </td>
-    <td><input type="hidden" name="id" value="{{$pubs->p_id}}">
-      <input type="submit" value="Delete" name="submit" class="btn btn-danger" {{session()->has('success')? 'disabled':''}}></td>
-</td>
-</form>
+<td colspan="2"><input type="hidden" name="id" value="{{$pubs->p_id}}">
+      <input type="submit" value="Restore Publication" name="submit" class="btn btn-primary" {{session()->has('success')? 'disabled':''}}>
+    </td>  </tr> 
+    </form>
     
-  </tr> 
+
 		
 			
 		

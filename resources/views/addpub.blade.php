@@ -37,6 +37,12 @@
 	   	 <textarea  class="form-control" type="text" name="citation" id="publication-citation">{{old('citation')}}</textarea>
 	  	</div>
 	</div>
+		<div class="form-group row">
+	  	<label for="journal" class="col-md-2">Journal Title</label>
+	  	<div class="col-md-10">
+	   	 <input class="form-control" type="text" name="journal" value="{{old('journal')}}"  id="journal">
+	  	</div>
+	</div>
 	<div class="form-group row">
 	<div class="col-md-2">
 	  	<label for="author">Authors</label>
@@ -63,12 +69,13 @@
 	  		<option value="Last">Last Author</option>
 	  		</select>
 	  	</div>
-	  	<div class="col-md-2" style="display: none;">
-	  		<select class="form-control" type="text" name="centre[]" value="{{old('centre[]')}}" onchange="CheckColors(this.value);">
-	  			<option>Institution</option>
-	  			<option>NIMR</option>
-				<option value="others">Other</option>			
-	  		</select>
+	  	<div class="col-md-2" >
+	  	 <select class="form-control" type="text" name="centre" value="{{old('centre')}}" style='display:none;'>
+	   	 	<option value="">Choose Centre</option>
+	   	 	@foreach($cents as $c)
+	   	 	<option value="{{$c->id}}">NIMR {{$c->c_name}}</option>
+	   	 	@endforeach
+	   	 </select>
 	  		<input type="text" name="autInst[]" id="institute" placeholder="Institute name" style='display:none;'/>
 	  	</div>
 
@@ -76,7 +83,7 @@
 
 	<div id="more-authors"></div>
 	<div class="form-group row">
-	  	<label for="year" class="col-md-2">Other Information</label>
+	  	<label for="year" class="col-md-2">Article Information</label>
 	  	<div class="col-md-2">
 	   	<select class="form-control" type="text" name="pub_year" value="{{old('pub_year')}}"  id="year">
 	  	<option value="">Publication Year</option>
@@ -105,9 +112,10 @@
 	  	</div>
 	</div>
 	<div class="form-group row" style=" position: absolute;
-  top: 140px;
+  top: 30%;
   right: 0;
-  width: 200px;
+  left:85%;
+  width: 20%;
    ">
 		<div class="col-md-2" style="width: 200px;">
 	   	 <select class="form-control" type="text" name="centre" value="{{old('centre')}}">
@@ -122,7 +130,7 @@
 	  	<label for="pub-type" class="col-md-2">Publication Type</label>
 	  	<div class="col-md-10">
 	   	 <select class="form-control" type="text" name="pub_type" value="{{old('pub_type')}}"  id="pub-type">
-	   	 <option></option>
+	   	 <option value="" selected disabled>Choose Publication Type</option>
 	   	 @foreach($pubTypes as $type)
 	   	 <option value="{{$type->id}}">{{$type->type}}</option>
 	   	 @endforeach
@@ -133,7 +141,7 @@
 	  	<label for="research-area" class="col-md-2">Research Area</label>
 	  	<div class="col-md-10">
 	   	 <select onchange="CheckResearch(this.value);" class="form-control" type="text" name="researchArea" value="{{old('researchArea')}}">
-	   	 	<option value=""></option>
+	   	 	<option value="" selected disabled >Choose Research Area</option>
 	   	 	@foreach($area as $a)
 	   	 	<option value="{{$a->id}}">{{$a->area}}</option>
 	   	 	@endforeach
@@ -148,31 +156,20 @@
 	   	 <input class="form-control" type="text" name="otherResearchArea">
 	  	</div>
 	</div>
+
 	<div class="form-group row">
-	  	<label for="journal" class="col-md-2">Journal</label>
-	  	<div class="col-md-10">
-	   	 <input class="form-control" type="text" name="journal" value="{{old('journal')}}"  id="journal">
-	  	</div>
-	</div>
-	<div class="form-group row">
-	  	<label for="doi" class="col-md-2">Link to publication</label>
+	  	<label for="doi" class="col-md-2">Link to journal</label>
 	  	<div class="col-md-10">
 	   	 <input class="form-control" type="text" name="link" value="{{old('contact')}}"  id="doi">
 	  	</div>
 	</div>
 	<div class="form-group row">
-	  	<label for="doi" class="col-md-2">Doi</label>
+	  	<label for="doi" class="col-md-2">DOI</label>
 	  	<div class="col-md-10">
 	   	 <input class="form-control" type="text" name="doi" value="{{old('doi')}}"  id="doi">
 	  	</div>
 	</div>
-	<div class="form-group row">
-	  	<label for="doi" class="col-md-2">Contact (Email)</label>
-	  	<div class="col-md-10">
-	   	 <input class="form-control" type="text" name="contact" value="{{old('contact')}}"  id="doi">
-	  	</div>
-	</div>
-	<div class="form-group row">
+		<div class="form-group row">
 	  	<label for="publication-title" class="col-md-2">Abstract</label>
 	  	<div class="col-md-10">
 	   	 <textarea class="wysiwyg form-control" type="text" name="abstract" id="publication-abstract">{{old('abstract')}}</textarea>

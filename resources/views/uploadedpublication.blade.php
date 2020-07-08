@@ -95,15 +95,30 @@ rows="5" cols="20">{{$pubs->abstract}}</textarea>
   <div class="col-md-4">
     <h1 class="text-center top-border">Update</h1>
   <div class="uploader">    
-    <p>
-      Uploader name: {{$uploader->name}} {{$uploader->mname}} {{$uploader->sname}}
-      <br><br>Uploader Email: {{$uploader->email}}
-      <br><br>Uploader Mobile: {{$uploader->mobile}}
-    </p>
+    <table class="table table responsive">
+<tr>
+  <td>Uploader name:</td><td>{{$uploader->name}} {{$uploader->mname}} {{$uploader->sname}}</td>
+</tr>
+<tr>
+  <td>Uploader Email:</td> <td>{{$uploader->email}}</td>
+</tr>
+<tr>
+   <td>Uploader Mobile:</td><td> {{$uploader->mobile}}</td>
+</tr>
+  <tr>
+<td><input type="hidden" name="id" value="{{$pubs->p_id}}">
+      <input type="submit" value="Update" name="submit" class="btn btn-primary" {{session()->has('success')? 'disabled':''}}>
+    </td>
+    <td><input type="hidden" name="id" value="{{$pubs->p_id}}">
+      <input type="submit" value="Delete" name="submit" class="btn btn-danger" {{session()->has('success')? 'disabled':''}}></td>
+</td>
+</form>
     
-      <input type="hidden" name="id" value="{{$pubs->p_id}}">
-      <input type="submit" value="Update" name="submit" class="btn btn-primary">
-    </form>
+  </tr> 
+    
+      
+    
+    </table>
     </div>
   </div>
 </div>

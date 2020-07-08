@@ -41,8 +41,7 @@ class RegisterController extends Controller
     			);  
 
              return back()->with('success', 'Registered Successfully.');
-    		// return Redirect::to('home');		
-    	}
+    		    	}
     }
     function login(Request $request){
     	$data = Input::except(array('_token','submit'));
@@ -68,6 +67,5 @@ class RegisterController extends Controller
     function logout(){
     	Auth::logout();
         return Redirect::to('');    
-    	// return redirect()->back();
-    }
+    	    }
 }

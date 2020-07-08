@@ -1,8 +1,13 @@
 @extends('layout.new')
 @section('content')
    
-   <header class="section2 background-dark" style="margin-left:20px;">
-  <div class="line">        
+   <header class="section2 background-dark" style="margin-left:2%; margin-right:2.5%;">
+  <div class="line"> 
+
+    <h5 class="text-white margin-top-bottom-40 text-size-60 text-line-height-1">
+<a href="{{ url('home')}}">Home </a>&nbsp;&nbsp; 
+  &nbsp;&nbsp;/&nbsp;&nbsp; <a href="" style="color:#2F76A5;">Uploaded Publication</a></h5>
+         
     <div class="single_sidebar" style="margin-bottom: 30px;">
 <h2><span>UPLOADED PUBLICATIONS</span></h2>
 </div>
@@ -10,20 +15,16 @@
  
 </header>
 <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="left_content" style="margin-bottom:10px; margin-left:30px;">
+      <div class="col-lg-11 col-md-11 col-sm-11" style="margin-left:2%">
+       
   
 <!-- 
 HELLO: {{ Auth::user()->name }}
 
  -->
 	<table>
-	<!-- 	<tr>
-			<th>No</th>
-			<th>Title</th>
-			<th>Description</th>
-		</tr> -->
 		<div id="home" class="tab-pane fade in active">
+      <form method="POST" action="{{url('deletepublication/id')}}">
       @foreach($pubs as $p)
      <a href="uploadedpublication/{{$p->p_id}}">
       <div class="citation">
@@ -34,10 +35,12 @@ HELLO: {{ Auth::user()->name }}
         <br>
        
         <div style="color:red"> {{$p->status}} </div>
+      
       </div>
  </a>
-      
+    
       @endforeach
+        {!! $pubs->links() !!}
       @foreach($pub as $ps)
       <a href="uppublication/{{$ps->p_id}}">
       <div class="citation">

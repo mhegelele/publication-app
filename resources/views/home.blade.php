@@ -7,7 +7,7 @@
   <div class="single_post_content">
             <h2><span>LIST OF PUBLICATIONS</span></h2>
 <div class="row">
-<div class="col-xs-12">
+<div class="col-lg-12">
     <div class="search1">
 
 <input id="searchPubs" class="searchPubs" type="text" name="search" placeholder="Search">

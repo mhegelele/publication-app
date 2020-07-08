@@ -36,7 +36,6 @@ class HomeController extends Controller
                     ->where('status','=','approved')
                     ->paginate(15);
         return view('home')->with('text',$text)->with(['centres'=>$c]);
-        // return view('home2');
-        //return view('home');
+       
     }
 }

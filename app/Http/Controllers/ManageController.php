@@ -217,9 +217,8 @@ class ManageController extends Controller
 
     }
 
-    // public function myPagination()
-    // {
-    //     $pubs = pub::paginate(5);
-    //     return view('myPagination',compact('pubs'));
-    // }
+ 
+
+
+
 }

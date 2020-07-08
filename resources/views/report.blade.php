@@ -51,11 +51,13 @@
  @foreach($viewpub as $view) 
  <td style="width:20px;">{{ ++$i }}</td><td>{{$view->title}}</td>
             </tr>
+
  @endforeach
-      <!--  <tr>
-<td colspan="2"><a href="{{ route('pdfyear',['download'=>'pdf']) }}" style="color:red; margin-left:79%;  "><b>DOWNLOAD PDF</b> <span class="fa fa-file-pdf-o"></span></a></td>
-  </tr>   -->    
+      <tr>
   
+              <td colspan="2"><a href="{{ url('/centrePDF', $view->centre) }}" style="color:red; margin-left:79%;  "><b>DOWNLOAD PDF</b> <span class="fa fa-file-pdf-o"></span></a></td>
+
+            </tr>
 
 
   </tr>
@@ -94,7 +96,12 @@
           </div></a>
                   <a href="{{url('reportview')}}" style="color:white;"><div class="citation" style=" background-color:#2F76A5;">
             <h5>REPORT</h5>
-          </div></a>  @endif
+          </div></a> 
+
+<a href="{{url('setting')}}" ><div class="citation">
+           <h5>SETTINGS</h5>
+          </div></a>
+           @endif
           @endif
         
           <br><br>

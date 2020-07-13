@@ -25,9 +25,9 @@
       @foreach($pubs as $p)
       <a href="adminpublication/{{$p->p_id}}">
       <div class="citation">
-        <!-- <div class="new-pub-box"> -->
+      
            {{$p->title}}<br>{{$p->journal}} ({{$p->pub_year}}).
-        <!-- </div> -->
+       
       </div>
       </a>
       @endforeach

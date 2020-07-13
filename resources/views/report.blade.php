@@ -26,9 +26,9 @@
     @foreach($c as $c) 
 
             <tr>
-          @endforeach
+          
                   <th colspan="2"><center>NIMR {{$c->c_name}}</center></th>
-                  
+                  @endforeach
             </tr>  
 </thead>
  <tbody >

@@ -30,7 +30,6 @@
       
       <td>{{ ++$key }}</td>
        <td colspan="4">{{$item->title}}</td>
-
             </tr>
  @endforeach
       

@@ -302,7 +302,7 @@ function upPublication($id){
         }
         $authors = rtrim($first.$co.$last,", ").".";
 
-        $pubs = DB::table('publication')
+        $pub = DB::table('publication')
                     ->where('publication.p_id',$id)
                      ->join('authors', 'publication.p_id', '=', 'authors.p_id')
                    ->join('publication_types', 'publication.pub_type', '=', 'publication_types.id')
@@ -310,7 +310,7 @@ function upPublication($id){
                       ->leftJoin('centres','publication.centre', '=','centres.id')
                       ->leftJoin('users', 'publication.uploader', '=', 'users.id')
                     ->first();
-        return view('approvedpublication')->with(['pub'=>$pubs])->with('authors',$authors);
+        return view('approvedpublication')->with(['pub'=>$pub])->with('authors',$authors);
     }
 
     

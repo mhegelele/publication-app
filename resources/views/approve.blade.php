@@ -51,6 +51,11 @@ rows="5" cols="20">{{$pubs->abstract}}</textarea>
 	
 		<div class="letter-box">
 			<h3 class="title">Authors</h3>
+			   <div class="col-md-1 pull-right">
+        <a href="{{url('/addadminauthor/'.$pubs->p_id)}}"><span class="fa fa-plus" title="Add Author"></span></a>
+    
+
+      </div>
 		  @foreach($nauthors as $au)
  <a href="{{url('/author/'.$au->au_id)}}">{{$au->firstname}} {{$au->middlename}} {{$au->surname}}
 	&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;{{$au->role}}</a>  <br><br>
@@ -65,7 +70,7 @@ rows="5" cols="20">{{$pubs->abstract}}</textarea>
 			<tr>
 				<td>Pulbication Year</td>
 				<td><input type="text" name="pub_year" value="{{$pubs->pub_year}}" class="form-control" placeholder="Publication year"></td>
-				<!-- {{$pubs->pub_year}} -->
+				
 			</tr>
 			<tr>
 				<td>Pulbication Type</td>
@@ -90,7 +95,8 @@ rows="5" cols="20">{{$pubs->abstract}}</textarea>
 			</tr>
 			<tr>
 				<td>Doi</td>
-				<td><a href="https://doi.org/{{$pubs->doi}}">{{$pubs->doi}}</a></td>
+				<td><input type="text" name="pubs" value="{{$pubs->doi}}" class="form-control" placeholder="DOI">
+					</td>
 			</tr>
 			<tr>
 			<td>Upload Date</td>

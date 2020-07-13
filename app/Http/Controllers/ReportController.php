@@ -21,7 +21,8 @@ function overallreport(Request $request)
                 ->leftJoin('publication','publication.centre', '=','centres.id')
                 ->select(DB::raw('count(publication.centre) AS idadi, centres.id, centres.c_name'))
                 ->where('publication.status','=','approved')
-                ->groupBy('id')
+                 ->where('publication.level', '!=',  1)
+                 ->groupBy('id')
                 ->orderBy('c_name')
                 ->get();
             $r = DB::table('role')
@@ -33,8 +34,9 @@ function overallreport(Request $request)
             
             $y = DB::table('publication as t1')
                 ->join('publication as t2','t1.pub_year', '=','t2.pub_year')
-                ->select(DB::raw('count(t2.p_id) AS years1, t1.pub_year, t1.p_id'))
+                ->select(DB::raw('count(t2.p_id) AS years1, t1.pub_year, t1.level, t1.p_id'))
                 ->where('t2.status','=','pending')
+                ->where('t1.level', '!=',  1)
                 ->groupBy('pub_year')
                 ->orderBy('pub_year')
                 ->get();
@@ -59,22 +61,27 @@ function overallreport(Request $request)
             $ap = DB::table('publication')
                 ->select(DB::raw('count(*) as publications1'),'title')
                 ->where('publication.status','=','approved')
+                ->where('publication.level', '!=',  1)
                 // ->groupBy('pub_year')
                 ->get();
 
            $ap1 = DB::table('publication')->where('status','approved')
+                                           ->where('publication.level', '!=',  1)
                                             ->select('p_id','title')
                                            ->paginate(10);
 
              $pubs = DB::table('publication')->where('status','approved')
+                                             ->where('publication.level', '!=',  1)
                                             ->select('p_id','title')
                                             ->get();
              $app = DB::table('publication')
                 ->select(DB::raw('count(*) as publications2'),'title')
                 ->where('publication.status','=','pending')
+                ->where('publication.level', '!=',  1)
                 // ->groupBy('pub_year')
                 ->get();
             $app1 = DB::table('publication')->where('status','pending')
+                                             ->where('publication.level', '!=',  1)
                                             ->select('p_id','title')
                                           ->paginate(10);
             $pc = DB::table('centres')
@@ -84,6 +91,7 @@ function overallreport(Request $request)
              $cents = DB::table('centres')->get();
 
              $year = DB::table('publication')
+                    ->where('publication.level', '!=',  1) 
                     ->groupBy('pub_year')
                    ->paginate(10);
 
@@ -151,18 +159,21 @@ function Searchreport($id){
                 ->select(DB::raw('count(*) as publications1'))
                 ->where('publication.centre','=',$id)
                 ->where('publication.status','=','approved')
+                ->where('publication.level', '!=',  1)
                 ->get();
 
             $pubs = DB::table('publication')
                 ->select(DB::raw('count(*) as publications1'))
                 ->where('publication.centre','=',$id)
                 ->where('publication.status','=','approved')
+                ->where('publication.level', '!=',  1)
                 ->get();
 
 
            $viewpub = DB::table('publication')
                 ->where('publication.centre','=',$id)
                  ->where('publication.status','=','approved')
+                 ->where('publication.level', '!=',  1)
                 ->get(); 
 
 
@@ -170,15 +181,17 @@ function Searchreport($id){
                 ->select(DB::raw('count(*) as publications1'))
                 ->where('publication.centre','=',$id)
                 ->where('publication.status','=','pending')
+                ->where('publication.level', '!=',  1)
                 ->get();
 
                 $c = DB::table('centres')
                 ->where('centres.id','=',$id)
                 ->get();
 
-                 $cents = DB::table('centres')->get();
+             $cents = DB::table('centres')->get();
 
              $year = DB::table('publication')
+             ->where('publication.level', '!=',  1)
                     ->groupBy('pub_year')
                     ->get();
 
@@ -194,16 +207,19 @@ function Searchreport($id){
                 ->select(DB::raw('count(*) as publications1'))
                 ->where('publication.pub_year','=',$pub_year)
                 ->where('publication.status','=','approved')
+                ->where('publication.level', '!=',  1)
                 ->get();
 
               $c = DB::table('publication')
                 ->where('publication.pub_year','=',$pub_year)
+                ->where('publication.level', '!=',  1)
                 ->groupBy('pub_year')
                 ->get(); 
 
                  $pub = DB::table('publication')
                 ->select(DB::raw('count(*) as publications1'))
                 ->where('publication.pub_year','=',$pub_year)
+                ->where('publication.level', '!=',  1)
                 ->where('publication.status','=','pending')
                 ->get(); 
 
@@ -211,6 +227,7 @@ function Searchreport($id){
              $viewpub = DB::table('publication')
                 ->where('publication.pub_year','=',$pub_year)
                 ->where('publication.status','=','approved')
+                ->where('publication.level', '!=',  1)
                 ->get(); 
 
             
@@ -226,6 +243,7 @@ public function yearPDF(Request $request,$pub_year)
 
          $pubs = DB::table('publication')
                 ->where('publication.pub_year','=',$pub_year)
+                ->where('publication.level', '!=',  1)
                            ->get() ;
 
                             view()->share('pubs',$pubs, compact('pub_year'));
@@ -239,8 +257,10 @@ public function centrePDF(Request $request,$centre)
 {        
 
          $pubs = DB::table('publication')
+                  //->join('centres', 'publication.centre', '=', 'centres.c_name')
                   ->where('publication.centre','=',$centre)
-                           ->get() ;
+                  ->where('publication.level', '!=',  1)
+                  ->get() ;
 
                             view()->share('pubs',$pubs);
                             $pdf = PDF::loadView('centrepdf');
@@ -273,6 +293,7 @@ function fetch_data(Request $request)
       {
        $data = DB::table('publication')
           ->where('publication.status','=','approved')
+          ->where('publication.level', '!=',  1)
          ->whereBetween('uploadedDate', array($request->from_date, $request->to_date))
          ->get();
       }

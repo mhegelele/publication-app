@@ -13,7 +13,7 @@
   <div class="col-md-10 col-md-offset-1">
     @if(session()->has('success'))
       <div class="alert alert-success alert-dismissable fade in">
-        <a href="{{url('management')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
          {{session('success')}}
       </div>
     @endif
@@ -44,8 +44,13 @@ rows="5" cols="20">{{$pubs->abstract}}</textarea>
   
     <div class="letter-box">
       <h3 class="title">Authors</h3>
+      <div class="col-md-1 pull-right">
+        <a href="{{url('/addauthor/'.$pubs->p_id)}}"><span class="fa fa-plus" title="Add Author"></span></a>
+    
+
+      </div>
            @foreach($nauthors as $au)
-   <a href="authors/{{$au->au_id}}">{{$au->firstname}} {{$au->middlename}} {{$au->surname}}
+   <a href="{{url('/authors/'.$au->au_id)}}">{{$au->firstname}} {{$au->middlename}} {{$au->surname}}
   &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;{{$au->role}}</a> <br><br>
     @endforeach
 
@@ -82,7 +87,8 @@ rows="5" cols="20">{{$pubs->abstract}}</textarea>
       </tr>
       <tr>
         <td>Doi</td>
-        <td><a href="https://doi.org/{{$pubs->doi}}">{{$pubs->doi}}</a></td>
+       <td><input type="text" name="pubs" value="{{$pubs->doi}}" class="form-control" placeholder="DOI">
+          </td>
       </tr>
       <tr>
       <td>Upload Date</td>

@@ -2,13 +2,7 @@
 
 
 namespace NimrPublication\Http\Controllers;
-//namespace NimrPublication\Http\Controllers;
-
-
-//use Illuminate\Http\Request;
-//use NimrPublications\Http\Controllers\Controller;
-//use NimrPublication\Item;
-
+use Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -196,7 +190,9 @@ else if($request->submit == "Approve")
         $abstract = $request->abstract;
         $title = $request->title;
         $citation = $request->citation;
-        DB::table('publication')->where('p_id',$id)->update(['status' => 'approved','approvedBy'=>$user,'approvedDate'=>$date, 'pub_year'=>$pub_year, 'title'=>$title, 'abstract'=>$abstract, 'citation'=>$citation]);
+        $doi = $request->doi;
+        DB::table('publication')->where('p_id',$id)->update(['status' => 'approved','approvedBy'=>$user,'approvedDate'=>$date, 'pub_year'=>$pub_year, 'title'=>$title,
+         'abstract'=>$abstract, 'citation'=>$citation, 'doi'=>$doi]);
         return redirect()->back()->with('success','Publication successfully Approved');
 
 }
@@ -276,27 +272,25 @@ else if($request->submit == "Approve")
 
 
  function addPublication(Request $request){
-        $data = Input::except(array('_token','submit','fname','mname','sname','authShip',
+        $data = Input::except(array('_token','submit','fname','mname','sname','authShip', 'inst',
             'autInst','otherResearchArea','researchArea'));
         $fname = $request->fname;
         $mname = $request->mname;
         $sname = $request->sname;
-        $inst = $request->autInst;
-        $authship = $request->authShip;
+       // $inst = $request->autInst;
+        $authShip = $request->authShip;
+        $centre=$request->centre;
+        $institution=$request->institution;
         $otherRA = $request->otherResearchArea;
         $rArea = $request->researchArea;
-        $data = array_merge($data,array("researchArea"=>$rArea));
-        if($rArea == 'other' && !empty($otherRA)){
-            DB::table('research_area')->insert(['area' => $otherRA]);
-            $rArea = DB::getPdo()->lastInsertId();
-        }
-        
-        $data = array_merge($data,array("researchArea"=>$rArea));
+        $inst = $request->inst;
+        //$data['myform'] = $request->all();
+        // $data = array_merge($data,array("researchArea"=>$rArea));
+               
+      
         $rule = array(
             'title'=>'required',
-            // 'researchArea'=>'required',
-            // 'pub_year'=>'required',
-            );
+                        );
 
         $validator = Validator::make($data,$rule);
         if ($validator->fails()) {
@@ -311,12 +305,23 @@ else if($request->submit == "Approve")
                     'p_id'=>$id,
                     'firstname'=>$fname[$x],
                     'middlename'=>$mname[$x],
-                    'surname'=>$sname[$x]
+                    'surname'=>$sname[$x],
+                    'role'=>$authShip[$x],
+                    'institution'=>$inst[$x]
                                        
                     ]);
+
                 }else{
                     echo "Error Occured";
                 }
+
+      //           $data = array('name'=>"Nimr Publication");
+   
+      // Mail::send(['text'=>'mail'], $data, function($message) {
+      //    $message->to('alicejonathan8@gmail.com', 'Nimr Publication')->subject
+      //       ('New Publication have been uploaded');
+      //    $message->from('nimrpublication@gmail.com','Nimr Publication');
+      // });
             }
             return redirect()->back()->with('success','Publication successfully Uploaded');   
         }
@@ -493,6 +498,54 @@ else if($request->submit == "Approve")
 
          return redirect()->back()->with('success','Publication Type successfully Added');   
     }
+
+
+     public function AddAuthor(Request $request){
+ if(Auth::check()){
+  
+       $p_id = $request->p_id;
+       $firstname = $request->firstname;
+        $middlename = $request->middlename;
+        $surname = $request->surname;
+        $role = $request->role;
+        $institution = $request->institution;
+        DB::table('authors')
+        ->insert(['p_id'=>$p_id,'firstname'=>$firstname,
+          'middlename'=>$middlename,'surname'=>$surname,
+          'role'=>$role,'institution'=>$institution
+                                       
+                    ]); 
+ 
+         return redirect()->back()->with('success','Author successfully Added'); 
+          }else{
+            return redirect()->back();
+        }  
+    }
+
+     public function AuthorAdd($p_id)
+    {
+
+               if(Auth::check()){
+            $c = DB::table('centres')->get();
+           
+            return view('addauthor',  compact('p_id'))->with(['c'=>$c]);
+        }else{
+            return redirect()->back();
+        }
+  
+    }
+    public function AuthorAdmin($p_id)
+    {
+
+               if(Auth::check()){
+            $c = DB::table('centres')->get();
+           
+            return view('addadminauthor',  compact('p_id'))->with(['c'=>$c]);
+        }else{
+            return redirect()->back();
+        }
+  
+    }
     // Setting ends..............................................
 
 
@@ -571,6 +624,16 @@ function showauthor($au_id){
 
     }  
 
+function viewAuthor($au_id){
+     $nauthors = DB::table('authors')
+                            ->where('authors.au_id', $au_id)                         
+                            ->get();
+
+          
+        return view('authors')
+                ->with(['nauthors'=>$nauthors]);
+
+}
 
     //Edit Author
     function Editauthor(Request $request)
@@ -579,8 +642,28 @@ function showauthor($au_id){
         $firstname = $request->firstname;
         $middlename = $request->middlename;
         $surname = $request->surname;
-        //$citation = $request->citation;
-        DB::table('authors')->where('au_id',$au_id)->update(['firstname'=>$firstname, 'middlename'=>$middlename, 'surname'=>$surname]);
+        $role = $request->role;
+        DB::table('authors')->where('au_id',$au_id)->update(['firstname'=>$firstname, 'middlename'=>$middlename, 'surname'=>$surname, 'role'=>$role]);
         return redirect()->back()->with('success','Author successfully Updated');
-    }  
+    } 
+
+
+
+    
+
+
+       function uploadPubl(){
+        if(Auth::check()){
+        $c = DB::table('centres')->get();
+        $pTypes = DB::table('publication_types')->get();
+        $area = DB::table('research_area')->get();
+        $text = DB::table('publication')
+                ->orderBy('pub_year','desc')
+                ->limit(6)
+                ->select('title','pub_year')->get();
+        return view('add')->with(['text'=>$text,'cents'=>$c, 'pubTypes'=>$pTypes,'area'=>$area]);
+        } else{
+            return redirect()->back();
+        }
+    }
 }

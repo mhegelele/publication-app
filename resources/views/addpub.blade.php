@@ -20,7 +20,7 @@
 @if(session()->has('success'))
 <div class="alert alert-success alert-dismissable fade in">
    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-   <strong>Success!</strong> {{session('success')}}
+   <strong>{{session('success')}}</strong> 
 </div>
 @endif
 <div class="form">
@@ -64,13 +64,13 @@
 	  	<div class="col-md-2">
 	  		<select class="form-control" type="text" name="authShip[]" value="{{old('authShip[]')}}">
 	  		<option value="">Authorship</option>
-	  		<option value="First">First Author</option>
-	  		<option value="Co">Co Author</option>
-	  		<option value="Last">Last Author</option>
+	  		<option value="First Author">First Author</option>
+	  		<option value="Co Author">Co Author</option>
+	  		<option value="Last Author">Last Author</option>
 	  		</select>
 	  	</div>
 	  	<div class="col-md-2" >
-	  	 <select class="form-control" type="text" name="centre" value="{{old('centre')}}" style='display:none;'>
+	  	 <select class="form-control" type="text" name="inst" value="{{old('inst')}}">
 	   	 	<option value="">Choose Centre</option>
 	   	 	@foreach($cents as $c)
 	   	 	<option value="{{$c->id}}">NIMR {{$c->c_name}}</option>
@@ -111,32 +111,29 @@
 	<input class="form-control" placeholder="End Page" type="text" name="endpage" value="{{old('endpage')}}"  id="endpage">
 	  	</div>
 	</div>
-	<div class="form-group row" style=" position: absolute;
-  top: 30%;
-  right: 0;
-  left:85%;
-  width: 20%;
-   ">
-		<div class="col-md-2" style="width: 200px;">
-	   	 <select class="form-control" type="text" name="centre" value="{{old('centre')}}">
-	   	 	<option value="">Choose Centre</option>
-	   	 	@foreach($cents as $c)
-	   	 	<option value="{{$c->id}}">NIMR {{$c->c_name}}</option>
-	   	 	@endforeach
-	   	 </select>
-	  	</div>
-	</div>
 	<div class="form-group row">
 	  	<label for="pub-type" class="col-md-2">Publication Type</label>
 	  	<div class="col-md-10">
+	  		<div class="col-md-6" style="margin-left:-2%;">
 	   	 <select class="form-control" type="text" name="pub_type" value="{{old('pub_type')}}"  id="pub-type">
 	   	 <option value="" selected disabled>Choose Publication Type</option>
 	   	 @foreach($pubTypes as $type)
 	   	 <option value="{{$type->id}}">{{$type->type}}</option>
 	   	 @endforeach
 	   	 </select>
+	   	 </div>
+	   	<div class="col-md-6" style="margin-left:2%;">
+	
+	<select class="form-control" type="text" name="centre" value="{{old('centre')}}">
+	   	 	<option value="" selected disabled>Publication Centre</option>
+	   	 	@foreach($cents as $c)
+	   	 	<option value="{{$c->id}}">NIMR {{$c->c_name}}</option>
+	   	 	@endforeach
+	   	 </select>
+	   	 
 	  	</div>
 	</div>
+</div>
 	<div class="form-group row">
 	  	<label for="research-area" class="col-md-2">Research Area</label>
 	  	<div class="col-md-10">

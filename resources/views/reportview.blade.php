@@ -65,6 +65,7 @@
               <td colspan="2">{{$pub10->title}}</td>
             </tr>
  @endforeach
+<tr><td colspan="2"> {!! $pubs10->links() !!}</td></tr>
    <!-- <tr>
 <td colspan="2"><a href="{{ route('pdfviews',['download'=>'pdf']) }}" style="color:red; margin-left:79%;  "><b>DOWNLOAD PDF</b> <span class="fa fa-file-pdf-o"></span></a></td>
   </tr> -->
@@ -79,7 +80,7 @@
               <td colspan="2">{{$pub20->title}}</td>
             </tr>
  @endforeach
-
+<tr><td colspan="2"> {!! $pubs20->links() !!}</td></tr>
   <!--  <tr>
 <td colspan="2"><a href="{{ route('pdfview',['download'=>'pdf']) }}" style="color:red; margin-left:79%;  "><b>DOWNLOAD PDF</b> <span class="fa fa-file-pdf-o"></span></a></td>
   </tr> -->

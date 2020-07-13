@@ -45,9 +45,18 @@ Route::post("/search","PageController@search");
 //view publication by ID
 Route::get("/publication/{id}","PageController@viewPublication");
 
-Route::get("/authors/au_id","PageController@viewAuthor");
+Route::get("/authors/{au_id}","PublicationController@viewAuthor");
+Route::get("/author/{au_id}","PublicationController@showauthor");
+//Author setting
+Route::post("/addauthors","PublicationController@AddAuthor");
+Route::get("/addauthor/{p_id}","PublicationController@AuthorAdd");
+//Route::post("/addadminauthor","PublicationController@AddAuthor");
+Route::get("/addadminauthor/{p_id}","PublicationController@AuthorAdmin");
+
+
 Route::get("/uppublication/{id}","PageController@upPublication");
 Route::get("/uploaded-publication","PageController@viewonePublication");
+Route::post("/editauthor","PublicationController@Editauthor");
 
 Route::get("/center/{id}","PageController@viewPublicationByCenter");
 
@@ -57,12 +66,12 @@ Route::get("/adminpublication/{id}","PageController@viewadminPublication");
 //approve publications by ids
 Route::get("/publications/{id}","ManageController@approve");
 Route::get("/uploadedpublication/{id}","ManageController@approveone");
-Route::get("/author/{au_id}","PublicationController@showauthor");
+
 
 
 Route::post("/approve","PublicationController@approve");
 Route::post("/deletepublication","PublicationController@trash");
-Route::post("/editauthor","PublicationController@Editauthor");
+
 
 Route::post("/uploadedpublication","PublicationController@approveone");
 
@@ -154,3 +163,9 @@ Route::get('/trash',"PublicationController@ShowTrash");
 Route::get("/trashs/{id}","PublicationController@ViewTrash");
 Route::post("/trash","PublicationController@EditTrash");
 // End of trash........................
+
+//addtest
+
+Route::post("/addpubl","PublicationController@addPubl");
+//Route::post("/add-publication","DataCommunication@addPublication");
+Route::get("/addpubl","PublicationController@uploadPubl");

@@ -75,6 +75,7 @@
 	   	 	@foreach($cents as $c)
 	   	 	<option value="{{$c->id}}">NIMR {{$c->c_name}}</option>
 	   	 	@endforeach
+	   	 	<option value="10">Others</option>
 	   	 </select>
 	  		<input type="text" name="autInst[]" id="institute" placeholder="Institute name" style='display:none;'/>
 	  	</div>
@@ -125,7 +126,7 @@
 	   	<div class="col-md-6" style="margin-left:2%;">
 	
 	<select class="form-control" type="text" name="centre" value="{{old('centre')}}">
-	   	 	<option value="" selected disabled>Publication Centre</option>
+	   	 	<option value="" selected disabled>Centre</option>
 	   	 	@foreach($cents as $c)
 	   	 	<option value="{{$c->id}}">NIMR {{$c->c_name}}</option>
 	   	 	@endforeach

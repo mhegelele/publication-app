@@ -45,6 +45,21 @@ class PageController extends Controller
             return redirect()->back();
         }
     }
+
+    function uploadPublications(){
+        if(Auth::check()){
+        $c = DB::table('centres')->get();
+        $pTypes = DB::table('publication_types')->get();
+        $area = DB::table('research_area')->get();
+        $text = DB::table('publication')
+                ->orderBy('pub_year','desc')
+                ->limit(6)
+                ->select('title','pub_year')->get();
+        return view('addpublication')->with(['text'=>$text,'cents'=>$c, 'pubTypes'=>$pTypes,'area'=>$area]);
+        } else{
+            return redirect()->back();
+        }
+    }
     function management(){
         if(Auth::check()){
             $text = DB::table('publication')->where('status','approved')
@@ -136,24 +151,15 @@ class PageController extends Controller
                             ->where('authors.p_id',$id)
                             ->join('publication', 'authors.p_id', "=",'publication.p_id')
                             ->select('authors.*')->get();
-        $first="";
-        $co="";
-        $last="";
-        foreach($authors as $au){
-            if($au->role == "First"){
-                $first .= $this->getInitials($au->firstname,$au->middlename).$au->surname.",  ";
-            }else if($au->role == "Co Author"){
-                $co .= $this->getInitials($au->firstname,$au->middlename).$au->surname.",  ";
-            }else{
-                $last .= $this->getInitials($au->firstname,$au->middlename).$au->surname.",  ";
-            }
-        }
-        $authors = rtrim($first.$co.$last,", ").".";
-
-        $pubs = DB::table('publication')
-                    ->where('p_id',$id)
+  
+        $pub = DB::table('publication')
+                    ->where('publication.p_id',$id)
+                    ->join('publication_types', 'publication.pub_type', "=",'publication_types.id')
+                    ->leftjoin('research_area', 'publication.researchArea', "=", 'research_area.id')
+                    ->leftjoin('authors', 'publication.p_id', "=", 'authors.p_id')
+                    ->leftjoin('centres', 'publication.centre', "=", 'centres.id')
                     ->first();
-        return view('view-publication')->with(['pub'=>$pubs])->with('authors',$authors);
+        return view('view-publication')->with(['pub'=>$pub])->with('authors',$authors);
     }
     function getInitials($first,$middle){
         $initials ="";
@@ -283,36 +289,24 @@ class PageController extends Controller
         return view('view-adminpublication')->with(['pub'=>$pub])->with('authors',$authors);
     }
 
-function upPublication($id){
+
+
+
+   function upPublication($id){
         $authors = DB::table('authors')
                             ->where('authors.p_id',$id)
                             ->join('publication', 'authors.p_id', "=",'publication.p_id')
                             ->select('authors.*')->get();
-        $first="";
-        $co="";
-        $last="";
-        foreach($authors as $au){
-            if($au->role == "First"){
-                $first .= $this->getInitials($au->firstname,$au->middlename).$au->surname.",  ";
-            }else if($au->role == "Co Author"){
-                $co .= $this->getInitials($au->firstname,$au->middlename).$au->surname.",  ";
-            }else{
-                $last .= $this->getInitials($au->firstname,$au->middlename).$au->surname.",  ";
-            }
-        }
-        $authors = rtrim($first.$co.$last,", ").".";
-
+  
         $pub = DB::table('publication')
                     ->where('publication.p_id',$id)
-                     ->join('authors', 'publication.p_id', '=', 'authors.p_id')
-                   ->join('publication_types', 'publication.pub_type', '=', 'publication_types.id')
-                      ->join('research_area', 'publication.researchArea', '=', 'research_area.id')
-                      ->leftJoin('centres','publication.centre', '=','centres.id')
-                      ->leftJoin('users', 'publication.uploader', '=', 'users.id')
+                    ->join('publication_types', 'publication.pub_type', "=",'publication_types.id')
+                    ->leftjoin('research_area', 'publication.researchArea', "=", 'research_area.id')
+                    ->leftjoin('authors', 'publication.p_id', "=", 'authors.p_id')
+                    ->leftjoin('centres', 'publication.centre', "=", 'centres.id')
                     ->first();
         return view('approvedpublication')->with(['pub'=>$pub])->with('authors',$authors);
     }
-
     
 public function viewonePublication()
     {

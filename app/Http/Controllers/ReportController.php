@@ -234,7 +234,7 @@ function Searchreport($id){
   
                      return view('year')->with(['pubs'=>$pubs, 'c'=>$c])->with(['pub'=>$pub])->
                      with(['viewpub'=>$viewpub])->with('i', (request()->input('page', 1) - 1) * 5)
-                     ->with(['pdf'=> $pdf]);
+                ;
 
         }
 

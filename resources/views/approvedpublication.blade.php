@@ -64,6 +64,14 @@
 	<div class="citation">
 	<strong>Phone number: </strong> {{$pub->mobile}}
 	</div>
+	<div class="citation">
+	<table class="table table-striped">
+	<tr><th><strong>Authors</strong></th></tr>
+	<tr>
+		<td>@foreach($authors as $author) {{$author->firstname}} {{$author->middlename}}  {{$author->surname}} {{$author->role}}  <br>
+	  @endforeach</td>
+	</tr>
+</table>
 	</div>
 
 </div>

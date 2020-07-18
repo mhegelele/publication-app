@@ -162,7 +162,7 @@ div#navigation {
         	@if(Auth::check())
              <li class="active"><a href="{{ url('')}}"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
                     <li><a href="{{url('add-publication')}}">Add Publication</a></li>
-                    <li><a href="{{url('uploaded-publication')}}">Uploaded Publication</a></li>
+                    <li><a href="{{url('uploaded-publication')}}">Uploaded Publications</a></li>
             @if(Auth::user()->level === 1)
             <li><a href="{{url('manage')}}">Manage</a></li>
                      @endif

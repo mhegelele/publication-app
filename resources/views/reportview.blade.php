@@ -19,7 +19,7 @@
 
 <div class="col-lg-8" style="margin-bottom: 30px;">
 <div class="col-lg-6"><select class="form-control" type="text" name="centre" value="{{old('centre')}}" onChange="window.location.href=this.value">
-        <option selected="true" disabled="disabled">Search Report by Center</option>  
+        <option selected="true" disabled="disabled">Search Report by Centre</option>  
                 @foreach($cents as $c)
         <option value="tryreport/{{$c->id}}"> NIMR {{$c->c_name}}</option>
         @endforeach
@@ -95,7 +95,7 @@
                   
             </tr>    
             <tr>
-                <th>CENTER NAME</th>
+                <th>CENTRE NAME</th>
                 <th>NO_PUBLICATIONS</th>
                          </tr>
            

@@ -12,6 +12,7 @@
 <div class="col-md-11 " style="margin-left:50px;">
 @if (count($errors) > 0)
     <div class="alert alert-danger">
+    	 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             @foreach ($errors->all() as $error)
             {{ $error }}
             @endforeach
@@ -24,7 +25,7 @@
 </div>
 @endif
 <div class="form">
-<form action="{{url('add-publication')}}" method="POST">
+<form action="{{url('add-publications')}}" method="POST">
 	<div class="form-group row">
 	  	<label for="publication-title" class="col-md-2">Publication Title</label>
 	  	<div class="col-md-10">
@@ -47,7 +48,10 @@
 	<div class="col-md-2">
 	  	<label for="author">Authors</label>
 	  	<div class="col-md-1 pull-right">
-		<span class="fa fa-plus"id="add-auth" title="Add field"></span>
+	  		<span class="fa fa-plus"id="add-auth" title="Add field"></span>
+	  		<!-- <button type="submit" class="btn btn-primary" ><i class="fa fa-plus"></i></button> -->
+	  		<!-- <input class="fa fa-plus" type="submit" name="submit" value="Add Publication"> -->
+		<!-- <span class="fa fa-plus" value="Add Publication" type="submit" title="Add field"></span> -->
 
 	  	</div>
 	</div>
@@ -70,7 +74,7 @@
 	  		</select>
 	  	</div>
 	  	<div class="col-md-2" >
-	  	 <select class="form-control" type="text" name="inst" value="{{old('inst')}}">
+	  	 <select class="form-control" type="text" name="centre" value="{{old('centre')}}">
 	   	 	<option value="">Choose Centre</option>
 	   	 	@foreach($cents as $c)
 	   	 	<option value="{{$c->id}}">NIMR {{$c->c_name}}</option>
@@ -99,15 +103,15 @@
 	  	<div class="col-md-2">
 	   	 <input class="form-control" placeholder="Volume" type="text" name="volume" value="{{old('volume')}}"  id="volume">
 	  	</div>
-	  	<div class="col-md-2">
-	   	 <input class="form-control" type="text" placeholder="Start Page" name="startpage" value="{{old('startpage')}}"  id="startpage">
-		 	   	 
-	  	</div>
+	  
 	  	<div class="col-md-2">
 
 		 <input class="form-control" placeholder="Issue" type="text" name="issue" value="{{old('issue')}}"  id="issue">
 	  	</div>
-		
+			<div class="col-md-2">
+	   	 <input class="form-control" type="text" placeholder="Start Page" name="startpage" value="{{old('startpage')}}"  id="startpage">
+		 	   	 
+	  	</div>
 	  	<div class="col-md-2">
 	<input class="form-control" placeholder="End Page" type="text" name="endpage" value="{{old('endpage')}}"  id="endpage">
 	  	</div>
@@ -115,24 +119,15 @@
 	<div class="form-group row">
 	  	<label for="pub-type" class="col-md-2">Publication Type</label>
 	  	<div class="col-md-10">
-	  		<div class="col-md-6" style="margin-left:-2%;">
+	  	
 	   	 <select class="form-control" type="text" name="pub_type" value="{{old('pub_type')}}"  id="pub-type">
 	   	 <option value="" selected disabled>Choose Publication Type</option>
 	   	 @foreach($pubTypes as $type)
 	   	 <option value="{{$type->id}}">{{$type->type}}</option>
 	   	 @endforeach
 	   	 </select>
-	   	 </div>
-	   	<div class="col-md-6" style="margin-left:2%;">
-	
-	<select class="form-control" type="text" name="centre" value="{{old('centre')}}">
-	   	 	<option value="" selected disabled>Centre</option>
-	   	 	@foreach($cents as $c)
-	   	 	<option value="{{$c->id}}">NIMR {{$c->c_name}}</option>
-	   	 	@endforeach
-	   	 </select>
-	   	 
-	  	</div>
+	   
+	  
 	</div>
 </div>
 	<div class="form-group row">

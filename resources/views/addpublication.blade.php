@@ -70,14 +70,14 @@
 	  		</select>
 	  	</div>
 	  	<div class="col-md-2" >
-	  	 <select class="form-control" type="text" name="inst" value="{{old('inst')}}">
+	  	 <select class="form-control" type="text" name="centre" value="{{old('centre')}}">
 	   	 	<option value="">Choose Centre</option>
 	   	 	@foreach($cents as $c)
 	   	 	<option value="{{$c->id}}">NIMR {{$c->c_name}}</option>
 	   	 	@endforeach
 	   	 	<option value="10">Others</option>
 	   	 </select>
-	  		<input type="text" name="autInst[]" id="institute" placeholder="Institute name" style='display:none;'/>
+	  		<input type="text" name="inst[]" id="institute" placeholder="Institute name" style='display:none;'/>
 	  	</div>
 
 	</div>

@@ -27,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
         //
 
       Schema::defaultStringLength(191);
+      error_reporting(E_ALL ^ E_NOTICE);
     }
 }

@@ -283,7 +283,7 @@ else if($request->submit == "Approve")
         $otherRA = $request->otherResearchArea;
         $rArea = $request->researchArea;
         $inst = $request->inst;
-        $data['myform'] = $request->all();
+        // $data['myform'] = $request->all();
         // $data = array_merge($data,array("researchArea"=>$rArea));
                
       

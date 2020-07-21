@@ -33,7 +33,6 @@ Route::post("/approve","PublicationController@approve");
 //Add publication route 
 Route::post("/add-publication","PublicationController@addPublication");
 Route::post("/add-publications","PublicationController@addPublication");
-//Route::post("/add-publication","DataCommunication@addPublication");
 Route::get("/add-publication","PageController@uploadPublication");
 
 Route::post("/addpublication","DataCommunication@addPublication");

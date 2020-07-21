@@ -81,7 +81,7 @@
 	   	 	@endforeach
 	   	 	<option value="10">Others</option>
 	   	 </select>
-	  		<input type="text" name="autInst[]" id="institute" placeholder="Institute name" style='display:none;'/>
+	  		<input type="text" name="inst[]" id="institute" placeholder="Institute name" style='display:none;'/>
 	  	</div>
 
 	</div>

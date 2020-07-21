@@ -315,13 +315,13 @@ else if($request->submit == "Approve")
                     echo "Error Occured";
                 }
 
-      //           $data = array('name'=>"Nimr Publication");
+                $data = array('name'=>"Nimr Publication");
    
-      // Mail::send(['text'=>'mail'], $data, function($message) {
-      //    $message->to('alicejonathan8@gmail.com', 'Nimr Publication')->subject
-      //       ('New Publication have been uploaded');
-      //    $message->from('nimrpublication@gmail.com','Nimr Publication');
-      // });
+      Mail::send(['text'=>'mail'], $data, function($message) {
+         $message->to('ndekya@yahoo.com', 'Nimr Publication')->subject
+            ('New Publication have been uploaded');
+         $message->from('nimrpublication@gmail.com','Nimr Publication');
+      });
             }
             return redirect()->back()->with('success','Publication successfully Uploaded');   
         }
@@ -329,6 +329,65 @@ else if($request->submit == "Approve")
 
 
 
+ function addPublications(Request $request){
+        $data = Input::except(array('_token','submit','fname','mname','sname','authShip', 'inst',
+            'autInst','otherResearchArea','researchArea'));
+        $fname = $request->fname;
+        $mname = $request->mname;
+        $sname = $request->sname;
+       $centre = $request->inst;
+        $authShip = $request->authShip;
+        $centre=$request->centre;
+        $institution=$request->institution;
+        $otherRA = $request->otherResearchArea;
+        $rArea = $request->researchArea;
+        $inst = $request->inst;
+        //$data['myform'] = $request->all();
+        // $data = array_merge($data,array("researchArea"=>$rArea));
+               
+      
+        $rule = array(
+            'title'=>'required',
+            'journal'=>'required',
+            'citation'=>'required',
+            'pub_type'=>'required',
+            'pub_year'=>'required',
+                        );
+
+        $validator = Validator::make($data,$rule);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }else{
+
+            DB::table('publication')->insert($data); 
+            $id = DB::getPdo()->lastInsertId();
+            for($x = 0; $x<sizeof($sname);$x++){
+                if($sname[$x] != ""){
+                DB::table('authors')->insert([
+                    'p_id'=>$id,
+                    'firstname'=>$fname[$x],
+                    'middlename'=>$mname[$x],
+                    'surname'=>$sname[$x],
+                    'role'=>$authShip[$x],
+                    'institution'=>$inst[$x]
+                                       
+                    ]);
+
+                }else{
+                    echo "Error Occured";
+                }
+
+      //           $data = array('name'=>"Nimr Publication");
+   
+      // Mail::send(['text'=>'mail'], $data, function($message) {
+      //    $message->to('ndekya@yahoo.com', 'Nimr Publication')->subject
+      //       ('New Publication have been uploaded');
+      //    $message->from('nimrpublication@gmail.com','Nimr Publication');
+      // });
+            }
+            return redirect()->back()->with('success','Publication successfully Uploaded');   
+        }
+    }
      public function researcharea()
     {
 

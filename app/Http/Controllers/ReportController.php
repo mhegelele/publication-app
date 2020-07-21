@@ -299,7 +299,10 @@ function fetch_data(Request $request)
       }
       else
       {
-       $data = DB::table('publication')->orderBy('uploadedDate', 'desc')->get();
+       $data = DB::table('publication')
+                ->where('publication.status','=','approved')
+                ->where('publication.level', '!=',  1)
+                ->orderBy('uploadedDate', 'desc')->get();
       }
       echo json_encode($data);
      }

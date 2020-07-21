@@ -273,7 +273,7 @@ else if($request->submit == "Approve")
 
  function addPublication(Request $request){
         $data = Input::except(array('_token','submit','fname','mname','sname','authShip', 'inst',
-            'autInst','otherResearchArea','researchArea'));
+            'otherResearchArea','researchArea'));
         $fname = $request->fname;
         $mname = $request->mname;
         $sname = $request->sname;
@@ -331,7 +331,7 @@ else if($request->submit == "Approve")
 
  function addPublications(Request $request){
         $data = Input::except(array('_token','submit','fname','mname','sname','authShip', 'inst',
-            'autInst','otherResearchArea','researchArea'));
+            'otherResearchArea','researchArea'));
         $fname = $request->fname;
         $mname = $request->mname;
         $sname = $request->sname;

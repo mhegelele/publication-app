@@ -84,7 +84,7 @@ var myChart = new Chart(ctx, {
         title: {
             display: true,
             position: 'bottom',
-            text: 'Publications by center'
+            text: 'Publications by centre'
         }
     }
 });

@@ -158,18 +158,33 @@ div#navigation {
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
+
         <ul class="nav navbar-nav main_nav">
         	@if(Auth::check())
-             <li class="active"><a href="{{ url('')}}"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
-                    <li><a href="{{url('add-publication')}}">Add Publication</a></li>
-                    <li><a href="{{url('uploaded-publication')}}">Uploaded Publications</a></li>
+             <li class="{{ Request::segment(1) === 'home' ? 'active' : null }}">
+              <a href="{{ url('')}}">
+              <span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
+                    <li class="{{ Request::segment(1) === 'add-publication' ? 'active' : null }}">
+                      <a href="{{url('add-publication')}}">Add Publication</a>
+                    </li>
+                    <li class="{{ Request::segment(1) === 'uploaded-publication' ? 'active' : null }}">
+                      <a href="{{url('uploaded-publication')}}">Uploaded Publications</a>
+                    </li>
             @if(Auth::user()->level === 1)
-            <li><a href="{{url('manage')}}">Manage</a></li>
+            <li class="{{ Request::segment(1) === 'manage' ? 'active' : null }}">
+              <a href="{{url('manage')}}">Manage</a>
+            </li>
                      @endif
-            <li><a href="{{url('logout')}}">Logout</a></li>
+            <li class="{{ Request::segment(1) === 'logout' ? 'active' : null }}">
+              <a href="{{url('logout')}}">Logout</a>
+            </li>
           @else
-           <li class="active"><a href="{{ url('')}}"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
-           <li class="nav-right"><a href="{{ url('login')}}">Login</a></li>  
+           <li class="active">
+            <a href="{{ url('')}}"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a>
+          </li>
+           <li class="nav-right">
+            <a href="{{ url('login')}}">Login</a>
+          </li>  
             <!-- <li><a href="{{url('register')}}">Register</a></li> -->
           @endif
                 

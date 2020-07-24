@@ -177,9 +177,10 @@ function approvetrash(Request $request){
 
 
     $p_id = $request->p_id;
+    $date = date("Y-m-d");
     DB::table('publication')
     ->where('p_id',$p_id)
-    ->update(['level' => 1]);
+    ->update(['level' => 1, 'level_date'=>$date]);
     return redirect()->back()
     ->with('success','Publication successfully Deleted');
 

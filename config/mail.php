@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+    'host' => env('MAIL_HOST', 'smtp.eganet.go.tz'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'nimrpublication@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'NIMR PUBLICATION'),
+        'address' => env('MAIL_FROM_ADDRESS', 'publications@nimr.or.tz'),
+        'name' => env('MAIL_FROM_NAME', 'NIMR PUBLICATIONS DATABASE'),
     ],
 
     /*

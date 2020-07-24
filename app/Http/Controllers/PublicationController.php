@@ -171,6 +171,20 @@ else if($request->submit == "Update")
        
     }
 
+//// Delete trash
+
+function approvetrash(Request $request){
+
+
+    $p_id = $request->p_id;
+    DB::table('publication')
+    ->where('p_id',$p_id)
+    ->update(['level' => 1]);
+    return redirect()->back()
+    ->with('success','Publication successfully Deleted');
+
+}
+
 function approve(Request $request){
 
 

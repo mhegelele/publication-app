@@ -11,6 +11,15 @@
   </div>
 </header>
 <div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		@if(session()->has('success'))
+			<div class="alert alert-success alert-dismissable fade in">
+  			<a href="{{url('')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			 {{session('success')}}
+			</div>
+		@endif
+	</div>
+<div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="left_content" style="margin-bottom:20px;">
 	<div class="citation">
@@ -67,6 +76,14 @@
 	</div>
 	<div class="citation">
 	<strong>Phone number: </strong> {{$pub->mobile}}
+	</div>
+	<div class="citation">
+	<form method="POST" action="{{url('deleteapprove')}}">
+			{{csrf_field()}}
+
+		<input type="hidden" name="p_id" value="{{$pub->p_id}}">
+		<input type="submit" value="Delete" name="submit" class="btn btn-danger" {{session()->has('success')? 'disabled':''}}>
+		</form>
 	</div>
 	</div>
 

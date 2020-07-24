@@ -17,11 +17,13 @@ class PageController extends Controller
                 ->leftJoin('publication','publication.centre', '=','centres.id')
                 ->select(DB::raw('count(publication.centre) AS idadi, centres.id, centres.c_name'))
                 ->where('publication.status','=','approved')
+                ->where('level', '!=',  1)
                 ->groupBy('id')
                 ->orderBy('c_name')
                 ->get();
     	$text = DB::table('publication')
                     ->where('status','=','approved')
+                    ->where('level', '!=',  1)
                     ->paginate(15);
     	return view('home2')->with('text',$text)->with(['centres'=>$c]);
     }
@@ -201,7 +203,7 @@ class PageController extends Controller
         $search = $request->search_value;
         $length = $request->length;
         $draw = $request->draw;
-        $publications =  Publication::where('status','=','approved');
+        $publications =  Publication::where('status','=','approved')->where('level', '!=',  1);
         if(!empty($search) && !is_null($search)){
             $publications->where('citation','like',"%{$search}%");
         }
@@ -216,7 +218,7 @@ class PageController extends Controller
      
         $data_table = array(
             "draw"=>$request->draw,
-            "recordsTotal"=>Publication::where('status','=','approved')->count(),
+            "recordsTotal"=>Publication::where('status','=','approved')->where('level', '!=',  1)->count(),
             "recordsFiltered" =>  $totalRecords->count(),
             "data"=>$data
         );

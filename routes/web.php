@@ -72,6 +72,7 @@ Route::get("/uploadedpublication/{id}","ManageController@approveone");
 Route::post("/approve","PublicationController@approve");
 Route::post("/deletepublication","PublicationController@trash");
 
+Route::post("/deleteapprove","PublicationController@approvetrash");
 
 Route::post("/uploadedpublication","PublicationController@approveone");
 

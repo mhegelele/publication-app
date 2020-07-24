@@ -18,7 +18,7 @@
 	<div class="col-md-10 col-md-offset-1">
 		@if(session()->has('success'))
 			<div class="alert alert-success alert-dismissable fade in">
-  			<a href="{{url('management')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  			<a href="{{url('')}}" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   			 {{session('success')}}
 			</div>
 		@endif

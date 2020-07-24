@@ -334,7 +334,7 @@ else if($request->submit == "Approve")
       Mail::send(['text'=>'mail'], $data, function($message) {
          $message->to('ndekya@yahoo.com', 'Nimr Publication')->subject
             ('New Publication have been uploaded');
-         $message->from('nimrpublication@gmail.com','Nimr Publication');
+         $message->from('publications@nimr.or.tz','NIMR PUBLICATIONS DATABASE');
       });
             }
             return redirect()->back()->with('success','Publication successfully Uploaded');   

@@ -171,6 +171,7 @@ class ManageController extends Controller
     function viewFile(){
         return "mimi";
     }
+    
     function viewPublicationByCenter($id){
         $d = $id;
         $cname = DB::table("centres")

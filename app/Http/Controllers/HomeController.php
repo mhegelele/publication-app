@@ -29,11 +29,13 @@ class HomeController extends Controller
                 ->leftJoin('publication','publication.centre', '=','centres.id')
                 ->select(DB::raw('count(publication.centre) AS idadi, centres.id, centres.c_name'))
                 ->where('publication.status','=','approved')
+                ->where('level', '!=', 1)
                 ->groupBy('id')
                 ->orderBy('c_name')
                 ->get();
         $text = DB::table('publication')
                     ->where('status','=','approved')
+                    ->where('level', '!=', 1)
                     ->paginate(15);
         return view('home')->with('text',$text)->with(['centres'=>$c]);
        

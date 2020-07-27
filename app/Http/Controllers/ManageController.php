@@ -18,11 +18,13 @@ class ManageController extends Controller
                 ->leftJoin('publication','publication.centre', '=','centres.id')
                 ->select(DB::raw('count(publication.centre) AS idadi, centres.id, centres.c_name'))
                 ->where('publication.status','=','pending')
+                ->where('level', '!=', 1)
                 ->groupBy('id')
                 ->orderBy('c_name')
                 ->get();
     	$text = DB::table('publication')
                     ->where('status','=','pending')
+                    ->where('level', '!=', 1)
                     ->paginate(15);
     	return view('home2')->with('text',$text)->with(['centres'=>$c]);
     }

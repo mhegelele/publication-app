@@ -29,7 +29,7 @@
         
         
           <div class="single_sidebar">
-           <h2><span>Centers</span></h2>
+           <h2><span>Centres</span></h2>
                  <ul class="centers">
            <li class="centers">
             <?php  $cntrs = ""; $data = "";?>

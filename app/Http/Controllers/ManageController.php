@@ -90,12 +90,12 @@ class ManageController extends Controller
         $uploader = DB::table('users')
                          ->where('publication.p_id',$id)
                         ->join('publication', 'users.id', '=', 'publication.uploader' )
-                        
                         ->first();
         $pubs =  DB::table('publication')
                    ->where('publication.p_id',$id)
                    ->join('publication_types', 'publication.pub_type', '=', 'publication_types.id')
                    ->leftjoin('research_area', 'publication.researchArea', '=', 'research_area.id')
+                   ->join('centres', 'publication.centre', '=', 'centres.id')
                    ->first();
         $nauthors = DB::table('authors')
                             ->where('authors.p_id', $id)                         
@@ -104,11 +104,13 @@ class ManageController extends Controller
           $authors = DB::table('authors')
                                                 
                             ->get();
+         $c = DB::table('centres')->get();
 
         return view('uploadedpublication')
-                ->with(['pubs'=>$pubs,'nauthors'=>$nauthors,'uploader'=>$uploader, 'authors'=>$authors]);
+                ->with(['pubs'=>$pubs,'nauthors'=>$nauthors,'uploader'=>$uploader, 'cents'=>$c, 'authors'=>$authors]);
 
     }
+    
     function reports(){
         return view('reports');
     }
@@ -177,15 +179,17 @@ class ManageController extends Controller
         $c = DB::table('centres')
                 ->leftJoin('publication','publication.centre', '=','centres.id')
                 ->select(DB::raw('count(publication.centre) AS idadi, centres.id, centres.c_name'))
-                ->where('publication.status','=','pending')
+                ->where('publication.status','=','approved')
+                ->where('level', '!=', 1)
                 ->groupBy('id')
                 ->orderBy('c_name')
                 ->get();
         $text = DB::table('publication')
                     ->where([
-                        ['status','=','pending'],
+                        ['status','=','approved'],
                         ['centre','=',$id]
                         ])
+                    ->where('level', '!=', 1)
                     ->paginate(10);
         return view('by-center')->with('text',$text)->with(['centres'=>$c])->with("name",$cname)->with("navId",$d);
     }

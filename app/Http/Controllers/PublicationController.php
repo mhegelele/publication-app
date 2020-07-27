@@ -164,7 +164,8 @@ else if($request->submit == "Update")
         $abstract = $request->abstract;
         $title = $request->title;
         $citation = $request->citation;
-        DB::table('publication')->where('p_id',$id)->update(['pub_year'=>$pub_year, 'title'=>$title, 'abstract'=>$abstract, 'citation'=>$citation]);
+        $centre = $request->centre;
+        DB::table('publication')->where('p_id',$id)->update(['pub_year'=>$pub_year, 'title'=>$title, 'abstract'=>$abstract, 'citation'=>$citation, 'centre'=>$centre]);
         return redirect()->back()->with('success','Publication successfully Updated');
 }
 

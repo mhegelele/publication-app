@@ -22,7 +22,7 @@
 </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
   <div class="single_sidebar" style="margin-bottom: 50px;">
-           <h2><span>Centers</span></h2>
+           <h2><span>Centres</span></h2>
                  <ul class="centers">
            <li class="centers">
             <?php  $cntrs = ""; $data = "";?>

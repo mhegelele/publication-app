@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: digitalocean.com/php
-    container_name: app
+    container_name: pubapp
     restart: unless-stopped
     tty: true
     environment:
@@ -18,48 +18,47 @@ services:
       - ./:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - app-network
+      - pub-network
 
   # Nginx Service
   webserver:
     image: nginx:alpine
-    container_name: webserver
+    container_name: pubwebserver
     restart: unless-stopped
     tty: true
     ports:
-      - "80:80"
-      - "443:443"
+      - "8081:80"
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
-      - app-network
+      - pub-network
 
   # MySQL Service
   db:
     image: mysql:5.7.22
-    container_name: db
+    container_name: pubdb
     restart: unless-stopped
     tty: true
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
-      MYSQL_DATABASE: nimr_publication
-      MYSQL_ROOT_PASSWORD: N1mx9653
+      MYSQL_DATABASE: publications
+      MYSQL_ROOT_PASSWORD: N1mx@9653
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - dbdata:/var/lib/mysql/
+      - pubdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
-      - app-network
+      - pub-network
 
 # Docker Networks
 networks:
-  app-network:
+  pub-network:
     driver: bridge
 
 # Volumes
 volumes:
-  dbdata:
+  pubdata:
     driver: local
